@@ -1441,6 +1441,552 @@ body {
 
 .btn-outline:hover { border-color: var(--blue); color: var(--blue); }
 
+/* ─── GOVERNMENT SCHEMES — LANDING ─── */
+.gov-schemes-section {
+  background: var(--navy);
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+.gov-schemes-section::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 80% 20%, rgba(41,121,255,0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 60% at 10% 80%, rgba(249,168,37,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.gov-schemes-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 64px 60px;
+  position: relative;
+  z-index: 1;
+}
+
+.gov-schemes-header {
+  margin-bottom: 40px;
+}
+
+.gov-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.12);
+  padding: 6px 14px;
+  border-radius: 4px;
+  font-size: 11px;
+  color: rgba(255,255,255,0.6);
+  font-family: 'IBM Plex Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+}
+
+.gov-tag-icon { font-size: 14px; }
+
+.gov-schemes-title {
+  font-size: 36px;
+  font-weight: 700;
+  color: white;
+  letter-spacing: -1.2px;
+  line-height: 1.1;
+  margin-bottom: 14px;
+  max-width: 700px;
+}
+
+.gov-schemes-sub {
+  font-size: 15px;
+  color: rgba(255,255,255,0.5);
+  max-width: 600px;
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+.schemes-grid-landing {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.scheme-card-landing {
+  border-radius: 10px;
+  padding: 20px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.04);
+  transition: all 0.2s;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.scheme-card-landing::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+}
+
+.scheme-green::before { background: linear-gradient(90deg, #2E7D32, #4CAF50); }
+.scheme-blue::before { background: linear-gradient(90deg, #2979FF, #64B5F6); }
+.scheme-amber::before { background: linear-gradient(90deg, #F9A825, #FFD54F); }
+
+.scheme-card-landing:hover {
+  background: rgba(255,255,255,0.07);
+  border-color: rgba(255,255,255,0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+
+.scheme-ministry {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: rgba(255,255,255,0.3);
+  font-family: 'IBM Plex Mono', monospace;
+  margin-bottom: 6px;
+}
+
+.scheme-name-lg {
+  font-size: 28px;
+  font-weight: 700;
+  font-family: 'IBM Plex Mono', monospace;
+  color: white;
+  line-height: 1;
+  margin-bottom: 4px;
+  letter-spacing: -0.5px;
+}
+
+.scheme-fullname {
+  font-size: 11px;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+
+.scheme-benefit-row {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.scheme-benefit-pill {
+  padding: 3px 8px;
+  border-radius: 3px;
+  font-size: 10px;
+  font-weight: 600;
+  font-family: 'IBM Plex Mono', monospace;
+  background: rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.8);
+  letter-spacing: 0.3px;
+}
+
+.scheme-green .scheme-benefit-pill { background: rgba(46,125,50,0.3); color: #A5D6A7; }
+.scheme-blue .scheme-benefit-pill { background: rgba(41,121,255,0.25); color: #90CAF9; }
+.scheme-amber .scheme-benefit-pill { background: rgba(249,168,37,0.2); color: #FFD54F; }
+
+.scheme-desc-sm {
+  font-size: 12px;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+.scheme-eligibility {
+  font-size: 10px;
+  color: rgba(255,255,255,0.3);
+  font-family: 'IBM Plex Mono', monospace;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding-top: 8px;
+}
+
+.schemes-cta-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(41,121,255,0.12);
+  border: 1px solid rgba(41,121,255,0.25);
+  border-radius: 8px;
+  padding: 18px 24px;
+}
+
+.schemes-cta-num {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--blue);
+  font-family: 'IBM Plex Mono', monospace;
+  margin-bottom: 2px;
+}
+
+.schemes-cta-sub {
+  font-size: 12px;
+  color: rgba(255,255,255,0.45);
+}
+
+.btn-schemes-cta {
+  padding: 10px 24px;
+  background: var(--blue);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'IBM Plex Sans', sans-serif;
+  white-space: nowrap;
+  transition: background 0.15s;
+}
+
+.btn-schemes-cta:hover { background: #1A56CC; }
+
+/* ─── GOVERNMENT SCHEMES — DASHBOARD PAGE ─── */
+.schemes-page-header {
+  background: linear-gradient(135deg, var(--navy) 0%, #0F2A4F 100%);
+  border-radius: 10px;
+  padding: 28px 28px 24px;
+  margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.schemes-page-header::after {
+  content: '🏛️';
+  position: absolute;
+  right: 28px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 60px;
+  opacity: 0.08;
+}
+
+.schemes-page-h1 {
+  font-size: 22px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 6px;
+  letter-spacing: -0.5px;
+}
+
+.schemes-page-sub {
+  font-size: 13px;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 16px;
+}
+
+.schemes-match-bar {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.match-stat {
+  text-align: center;
+}
+
+.match-stat-num {
+  font-size: 32px;
+  font-weight: 700;
+  font-family: 'IBM Plex Mono', monospace;
+  color: var(--amber);
+  line-height: 1;
+}
+
+.match-stat-label {
+  font-size: 10px;
+  color: rgba(255,255,255,0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  font-family: 'IBM Plex Mono', monospace;
+  margin-top: 2px;
+}
+
+.match-divider {
+  width: 1px;
+  height: 40px;
+  background: rgba(255,255,255,0.1);
+}
+
+.match-ai-note {
+  flex: 1;
+  font-size: 12px;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.5;
+}
+
+.match-ai-note strong { color: rgba(255,255,255,0.8); }
+
+/* scheme filter tabs */
+.scheme-filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.scheme-filter {
+  padding: 6px 14px;
+  border-radius: 4px;
+  border: 1px solid var(--border-strong);
+  background: white;
+  font-size: 11px;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-family: 'IBM Plex Sans', sans-serif;
+  transition: all 0.15s;
+}
+
+.scheme-filter.active {
+  background: var(--navy);
+  color: white;
+  border-color: var(--navy);
+}
+
+/* Full scheme cards */
+.scheme-full-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+  margin-bottom: 14px;
+}
+
+.scheme-full-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.07); }
+
+.scheme-card-top {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+}
+
+.scheme-color-bar {
+  width: 4px;
+  flex-shrink: 0;
+}
+
+.scheme-bar-green { background: linear-gradient(180deg, #2E7D32, #4CAF50); }
+.scheme-bar-blue { background: linear-gradient(180deg, #2979FF, #64B5F6); }
+.scheme-bar-amber { background: linear-gradient(180deg, #F9A825, #FFD54F); }
+.scheme-bar-teal { background: linear-gradient(180deg, #00695C, #26A69A); }
+.scheme-bar-purple { background: linear-gradient(180deg, #4527A0, #7E57C2); }
+
+.scheme-card-body {
+  flex: 1;
+  padding: 18px 20px;
+}
+
+.scheme-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.scheme-ministry-tag {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-dim);
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.scheme-eligibility-tag {
+  padding: 2px 7px;
+  border-radius: 3px;
+  font-size: 9px;
+  font-weight: 600;
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.elig-matched { background: var(--green-dim); color: var(--green); }
+.elig-check { background: var(--amber-dim); color: #B17800; }
+.elig-general { background: var(--blue-glow); color: var(--blue); }
+
+.scheme-card-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 3px;
+}
+
+.scheme-card-acronym {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.scheme-card-desc {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.scheme-benefits-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.benefit-chip {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  font-size: 11px;
+  color: var(--charcoal);
+  background: var(--bg);
+}
+
+.benefit-chip-icon { font-size: 13px; }
+
+.scheme-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.scheme-deadline {
+  margin-left: auto;
+  font-size: 10px;
+  color: var(--text-dim);
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.scheme-deadline.urgent { color: var(--red); }
+
+.scheme-card-right {
+  padding: 18px 20px;
+  border-left: 1px solid var(--border);
+  min-width: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.scheme-benefit-amount {
+  text-align: right;
+}
+
+.scheme-benefit-label {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text-dim);
+  font-family: 'IBM Plex Mono', monospace;
+  margin-bottom: 2px;
+}
+
+.scheme-benefit-value {
+  font-size: 20px;
+  font-weight: 700;
+  font-family: 'IBM Plex Mono', monospace;
+  color: var(--navy);
+  line-height: 1;
+}
+
+.scheme-benefit-type {
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.scheme-status-badge {
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  font-family: 'IBM Plex Mono', monospace;
+  text-align: center;
+}
+
+.status-open { background: var(--green-dim); color: var(--green); }
+.status-rolling { background: var(--blue-glow); color: var(--blue); }
+.status-closing { background: var(--amber-dim); color: #B17800; }
+
+/* eligibility checker */
+.elig-checker {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.elig-checker-header {
+  background: var(--bg);
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.elig-checker-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.elig-checker-body {
+  padding: 16px 20px;
+}
+
+.elig-profile-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.elig-profile-item {
+  background: var(--bg);
+  border-radius: 6px;
+  padding: 10px 12px;
+}
+
+.elig-profile-label {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text-dim);
+  font-family: 'IBM Plex Mono', monospace;
+  margin-bottom: 3px;
+}
+
+.elig-profile-value {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.elig-result-bar {
+  background: var(--bg);
+  border-radius: 6px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.elig-result-text {
+  font-size: 13px;
+  color: var(--charcoal);
+}
+
+.elig-result-text strong { color: var(--green); }
+
 /* ─── RESPONSIVE ─── */
 @media (max-width: 1100px) {
   .grid-3 { grid-template-columns: 1fr 1fr; }
@@ -1975,6 +2521,15 @@ body {
     </div>
 
     <div class="nav-section">
+      <div class="nav-label">Government</div>
+      <div class="nav-item" onclick="showPage('schemes')">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 1l7 5v9H1V6L8 1z"/><rect x="5" y="9" width="6" height="7"/></svg>
+        Gov Schemes
+        <span class="nav-badge amber">12</span>
+      </div>
+    </div>
+
+    <div class="nav-section">
       <div class="nav-label">Intelligence</div>
       <div class="nav-item" onclick="showPage('projections')">
         <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 12L5 7l4 2 5-7"/><path d="M13 5h2v2"/></svg>
@@ -2161,6 +2716,105 @@ body {
           <div class="reg-logo">FEMA / RBI</div>
         </div>
       </div>
+
+      <!-- GOV SCHEMES LANDING SECTION -->
+      <div class="gov-schemes-section">
+        <div class="gov-schemes-inner">
+          <div class="gov-schemes-header">
+            <div class="gov-tag">
+              <span class="gov-tag-icon">🏛️</span>
+              Government of India · MSME Ministry
+            </div>
+            <div class="gov-schemes-title">₹5.8 Lakh Crore in Government Schemes.<br>Is Your Business Claiming What It Deserves?</div>
+            <div class="gov-schemes-sub">ComplianceOS auto-matches your business profile to every central and state government scheme you are eligible for — subsidies, loans, grants, insurance, and market access programmes.</div>
+          </div>
+
+          <div class="schemes-grid-landing">
+
+            <div class="scheme-card-landing scheme-green">
+              <div class="scheme-ministry">Ministry of MSME</div>
+              <div class="scheme-name-lg">PMEGP</div>
+              <div class="scheme-fullname">Prime Minister's Employment Generation Programme</div>
+              <div class="scheme-benefit-row">
+                <div class="scheme-benefit-pill">Up to ₹50L subsidy</div>
+                <div class="scheme-benefit-pill">15–35% grant</div>
+              </div>
+              <div class="scheme-desc-sm">Provides capital subsidies for new manufacturing and service enterprises. Urban: 15% subsidy, Rural: 25%, SC/ST/Women: 35%.</div>
+              <div class="scheme-eligibility">✓ New enterprises · Manufacturing & Services · All India</div>
+            </div>
+
+            <div class="scheme-card-landing scheme-blue">
+              <div class="scheme-ministry">SIDBI / Ministry of Finance</div>
+              <div class="scheme-name-lg">CGTMSE</div>
+              <div class="scheme-fullname">Credit Guarantee Fund Trust for Micro & Small Enterprises</div>
+              <div class="scheme-benefit-row">
+                <div class="scheme-benefit-pill">Collateral-free loans</div>
+                <div class="scheme-benefit-pill">Up to ₹2 Crore</div>
+              </div>
+              <div class="scheme-desc-sm">Enables MSMEs to access bank credit without collateral or third-party guarantee. Credit guarantee cover of 75–85% of loan amount.</div>
+              <div class="scheme-eligibility">✓ Micro & Small Enterprises · Manufacturing & Services</div>
+            </div>
+
+            <div class="scheme-card-landing scheme-amber">
+              <div class="scheme-ministry">Ministry of MSME</div>
+              <div class="scheme-name-lg">ZED</div>
+              <div class="scheme-fullname">Zero Defect Zero Effect Certification Scheme</div>
+              <div class="scheme-benefit-row">
+                <div class="scheme-benefit-pill">₹50,000 subsidy</div>
+                <div class="scheme-benefit-pill">Export advantage</div>
+              </div>
+              <div class="scheme-desc-sm">Quality certification scheme that enhances MSME competitiveness. Reduces financial assistance for certification, enables access to global markets.</div>
+              <div class="scheme-eligibility">✓ Manufacturing MSMEs · Export-oriented units</div>
+            </div>
+
+            <div class="scheme-card-landing scheme-green">
+              <div class="scheme-ministry">Ministry of MSME</div>
+              <div class="scheme-name-lg">CLCSS</div>
+              <div class="scheme-fullname">Credit Linked Capital Subsidy Scheme</div>
+              <div class="scheme-benefit-row">
+                <div class="scheme-benefit-pill">15% capital subsidy</div>
+                <div class="scheme-benefit-pill">Up to ₹15L</div>
+              </div>
+              <div class="scheme-desc-sm">Technology upgradation for small industries. 15% upfront capital subsidy on institutional credit for induction of well-established and improved technology.</div>
+              <div class="scheme-eligibility">✓ Small Industries · Technology Upgradation</div>
+            </div>
+
+            <div class="scheme-card-landing scheme-blue">
+              <div class="scheme-ministry">Ministry of Commerce</div>
+              <div class="scheme-name-lg">MEIS / RoDTEP</div>
+              <div class="scheme-fullname">Remission of Duties and Taxes on Export Products</div>
+              <div class="scheme-benefit-row">
+                <div class="scheme-benefit-pill">Duty rebate</div>
+                <div class="scheme-benefit-pill">Export incentive</div>
+              </div>
+              <div class="scheme-desc-sm">Refunds embedded central, state and local duties/taxes to exporters. Boosts export competitiveness for MSME manufacturers and traders.</div>
+              <div class="scheme-eligibility">✓ Export-oriented MSMEs · Manufacturing</div>
+            </div>
+
+            <div class="scheme-card-landing scheme-amber">
+              <div class="scheme-ministry">Ministry of MSME</div>
+              <div class="scheme-name-lg">MSME Samridhi</div>
+              <div class="scheme-fullname">Delayed Payment Portal — MSME Samadhaan</div>
+              <div class="scheme-benefit-row">
+                <div class="scheme-benefit-pill">Payment recovery</div>
+                <div class="scheme-benefit-pill">3x interest on delay</div>
+              </div>
+              <div class="scheme-desc-sm">MSME suppliers can file applications for delayed payments by buyers (large companies & PSUs). Statutory right to 3× RBI lending rate interest on overdue amounts.</div>
+              <div class="scheme-eligibility">✓ Registered MSMEs · Suppliers to large buyers</div>
+            </div>
+
+          </div>
+
+          <div class="schemes-cta-bar">
+            <div class="schemes-cta-text">
+              <div class="schemes-cta-num">12 more schemes</div>
+              <div class="schemes-cta-sub">matched to your business profile — including Udyam benefits, state-specific subsidies, and sector schemes</div>
+            </div>
+            <button class="btn-schemes-cta" onclick="showPage('dashboard')">Check Your Eligibility →</button>
+          </div>
+        </div>
+      </div>
+      <!-- END GOV SCHEMES LANDING -->
 
       <div class="features-section">
         <div class="features-label">Platform Capabilities</div>
@@ -2509,6 +3163,83 @@ body {
             </div>
           </div>
         </div>
+
+        <!-- GOV SCHEMES DASHBOARD WIDGET -->
+        <div class="card">
+          <div class="card-header" style="margin-bottom:0;">
+            <div>
+              <div class="card-title">Government Schemes — Your Matches</div>
+              <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">AI-matched to your Udyam profile · Updated this week</div>
+            </div>
+            <button class="btn-primary" onclick="showPage('schemes')" style="font-size:12px;padding:6px 14px;">View All 12 →</button>
+          </div>
+          <div style="padding:16px 20px 0;">
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:0;">
+              <div style="background:var(--green-dim);border-radius:8px;padding:14px 16px;border:1px solid rgba(46,125,50,0.2);">
+                <div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;color:var(--green);font-family:'IBM Plex Mono',monospace;margin-bottom:4px;">Matched Schemes</div>
+                <div style="font-size:28px;font-weight:700;font-family:'IBM Plex Mono',monospace;color:var(--navy);line-height:1;">12</div>
+                <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">Central + State</div>
+              </div>
+              <div style="background:var(--amber-dim);border-radius:8px;padding:14px 16px;border:1px solid rgba(249,168,37,0.2);">
+                <div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#B17800;font-family:'IBM Plex Mono',monospace;margin-bottom:4px;">Max Potential Benefit</div>
+                <div style="font-size:28px;font-weight:700;font-family:'IBM Plex Mono',monospace;color:var(--navy);line-height:1;">₹2.3Cr</div>
+                <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">Across all schemes</div>
+              </div>
+              <div style="background:var(--red-dim);border-radius:8px;padding:14px 16px;border:1px solid rgba(198,40,40,0.2);">
+                <div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;color:var(--red);font-family:'IBM Plex Mono',monospace;margin-bottom:4px;">Closing Soon</div>
+                <div style="font-size:28px;font-weight:700;font-family:'IBM Plex Mono',monospace;color:var(--navy);line-height:1;">1</div>
+                <div style="font-size:11px;color:var(--red);margin-top:2px;font-weight:600;">MH Policy · 31 Mar</div>
+              </div>
+            </div>
+          </div>
+          <div style="border-top:1px solid var(--border);margin-top:16px;">
+            <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.8px;color:var(--text-dim);font-family:'IBM Plex Mono',monospace;padding:12px 20px 6px;">Top Priority Schemes</div>
+            <div style="display:flex;align-items:center;gap:12px;padding:10px 20px;border-bottom:1px solid var(--border);cursor:pointer;" onclick="showPage('schemes')">
+              <div style="width:3px;align-self:stretch;background:var(--blue);border-radius:2px;flex-shrink:0;min-height:40px;"></div>
+              <div style="flex:1;">
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:2px;">
+                  <div style="font-size:13px;font-weight:600;color:var(--navy);">CGTMSE — Collateral-Free Credit</div>
+                  <span class="tag tag-success">✓ Matched</span>
+                </div>
+                <div style="font-size:11px;color:var(--text-muted);">Up to ₹2 Crore working capital without pledging property · SIDBI</div>
+              </div>
+              <div style="text-align:right;flex-shrink:0;">
+                <div style="font-size:16px;font-weight:700;font-family:'IBM Plex Mono',monospace;color:var(--navy);">₹2 Cr</div>
+                <div style="font-size:10px;color:var(--green);font-weight:600;">Open Now</div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;padding:10px 20px;border-bottom:1px solid var(--border);cursor:pointer;" onclick="showPage('schemes')">
+              <div style="width:3px;align-self:stretch;background:var(--green);border-radius:2px;flex-shrink:0;min-height:40px;"></div>
+              <div style="flex:1;">
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:2px;">
+                  <div style="font-size:13px;font-weight:600;color:var(--navy);">PMEGP — Employment Generation Subsidy</div>
+                  <span class="tag tag-success">✓ Matched</span>
+                </div>
+                <div style="font-size:11px;color:var(--text-muted);">15–35% margin money subsidy on new projects up to ₹50L</div>
+              </div>
+              <div style="text-align:right;flex-shrink:0;">
+                <div style="font-size:16px;font-weight:700;font-family:'IBM Plex Mono',monospace;color:var(--navy);">₹17.5L</div>
+                <div style="font-size:10px;color:var(--green);font-weight:600;">Open Now</div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;padding:10px 20px;cursor:pointer;" onclick="showPage('schemes')">
+              <div style="width:3px;align-self:stretch;background:var(--red);border-radius:2px;flex-shrink:0;min-height:40px;"></div>
+              <div style="flex:1;">
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:2px;">
+                  <div style="font-size:13px;font-weight:600;color:var(--navy);">MH MSME Policy — Capital Subsidy</div>
+                  <span class="tag tag-critical">Closes 31 Mar</span>
+                </div>
+                <div style="font-size:11px;color:var(--text-muted);">10% capital subsidy + power tariff rebate · Govt of Maharashtra</div>
+              </div>
+              <div style="text-align:right;flex-shrink:0;">
+                <div style="font-size:16px;font-weight:700;font-family:'IBM Plex Mono',monospace;color:var(--red);">Urgent</div>
+                <div style="font-size:10px;color:var(--red);font-weight:600;">3 days left</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- END GOV SCHEMES WIDGET -->
+
       </div>
     </div>
 
@@ -3240,6 +3971,363 @@ body {
       </div>
     </div>
 
+    <!-- ==================== GOVERNMENT SCHEMES ==================== -->
+    <div id="page-schemes" class="page-section">
+      <div class="content">
+
+        <!-- Header Banner -->
+        <div class="schemes-page-header">
+          <div class="schemes-page-h1">Government Schemes for Your Business</div>
+          <div class="schemes-page-sub">AI-matched central and state government schemes based on your Udyam registration, sector, turnover, and state</div>
+          <div class="schemes-match-bar">
+            <div class="match-stat">
+              <div class="match-stat-num">12</div>
+              <div class="match-stat-label">Schemes Matched</div>
+            </div>
+            <div class="match-divider"></div>
+            <div class="match-stat">
+              <div class="match-stat-num">₹2.3Cr</div>
+              <div class="match-stat-label">Max Potential Benefit</div>
+            </div>
+            <div class="match-divider"></div>
+            <div class="match-stat">
+              <div class="match-stat-num">4</div>
+              <div class="match-stat-label">Applications Open</div>
+            </div>
+            <div class="match-divider"></div>
+            <div class="match-ai-note">
+              <strong>AI Match:</strong> Based on your Udyam No. MH-19-0034521 (Small Enterprise · Retail · Maharashtra), you are eligible for 12 schemes. 4 have open application windows right now.
+            </div>
+          </div>
+        </div>
+
+        <!-- Eligibility Profile Checker -->
+        <div class="elig-checker">
+          <div class="elig-checker-header">
+            <div class="elig-checker-title">Your Eligibility Profile</div>
+            <span class="tag tag-success">Udyam Verified ✓</span>
+          </div>
+          <div class="elig-checker-body">
+            <div class="elig-profile-row">
+              <div class="elig-profile-item">
+                <div class="elig-profile-label">Business Category</div>
+                <div class="elig-profile-value">Small Enterprise</div>
+              </div>
+              <div class="elig-profile-item">
+                <div class="elig-profile-label">Sector</div>
+                <div class="elig-profile-value">Retail Trade</div>
+              </div>
+              <div class="elig-profile-item">
+                <div class="elig-profile-label">Annual Turnover</div>
+                <div class="elig-profile-value">₹1.02 Crore</div>
+              </div>
+              <div class="elig-profile-item">
+                <div class="elig-profile-label">State</div>
+                <div class="elig-profile-value">Maharashtra</div>
+              </div>
+              <div class="elig-profile-item">
+                <div class="elig-profile-label">Employees</div>
+                <div class="elig-profile-value">14</div>
+              </div>
+              <div class="elig-profile-item">
+                <div class="elig-profile-label">Constitution</div>
+                <div class="elig-profile-value">Pvt. Limited</div>
+              </div>
+              <div class="elig-profile-item">
+                <div class="elig-profile-label">GST Status</div>
+                <div class="elig-profile-value">Registered</div>
+              </div>
+              <div class="elig-profile-item">
+                <div class="elig-profile-label">Udyam No.</div>
+                <div class="elig-profile-value" style="font-family:'IBM Plex Mono',monospace;font-size:11px;">MH-19-0034521</div>
+              </div>
+            </div>
+            <div class="elig-result-bar">
+              <div class="elig-result-text">Based on this profile, you qualify for <strong>12 of 47 active central government schemes</strong> and <strong>5 Maharashtra state schemes</strong>. Update your profile to refine matches.</div>
+              <button class="btn-outline" style="font-size:12px;padding:6px 14px;white-space:nowrap;">Update Profile</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scheme Filters -->
+        <div class="scheme-filters">
+          <button class="scheme-filter active">All Schemes (12)</button>
+          <button class="scheme-filter">Finance & Credit (4)</button>
+          <button class="scheme-filter">Subsidies & Grants (3)</button>
+          <button class="scheme-filter">Technology (2)</button>
+          <button class="scheme-filter">Export & Market (2)</button>
+          <button class="scheme-filter">State Schemes (5)</button>
+          <button class="scheme-filter">Open Now (4)</button>
+        </div>
+
+        <!-- Scheme Cards -->
+
+        <!-- 1. PMEGP -->
+        <div class="scheme-full-card">
+          <div class="scheme-card-top">
+            <div class="scheme-color-bar scheme-bar-green"></div>
+            <div class="scheme-card-body">
+              <div class="scheme-card-meta">
+                <div class="scheme-ministry-tag">Ministry of MSME · KVIC</div>
+                <span class="scheme-eligibility-tag elig-matched">✓ You Qualify</span>
+              </div>
+              <div class="scheme-card-title">Prime Minister's Employment Generation Programme</div>
+              <div class="scheme-card-acronym">PMEGP — Subsidy-linked Credit Scheme</div>
+              <div class="scheme-card-desc">Provides margin money (subsidy) to first-generation entrepreneurs for setting up new enterprises. General category: 15% (urban), 25% (rural). SC/ST/Women/Minorities/Ex-servicemen/PH/NER: 25% (urban), 35% (rural). Project cost up to ₹50 lakh (manufacturing) and ₹20 lakh (services).</div>
+              <div class="scheme-benefits-row">
+                <div class="benefit-chip"><span class="benefit-chip-icon">💰</span> Up to ₹50L project cost</div>
+                <div class="benefit-chip"><span class="benefit-chip-icon">📊</span> 15–35% subsidy</div>
+                <div class="benefit-chip"><span class="benefit-chip-icon">🏦</span> Bank-linked credit</div>
+                <div class="benefit-chip"><span class="benefit-chip-icon">🌐</span> All India</div>
+              </div>
+              <div class="scheme-actions">
+                <button class="btn-sm primary">Apply via KVIC Portal →</button>
+                <button class="btn-sm">Download Guidelines</button>
+                <button class="btn-sm">Check Eligibility</button>
+                <div class="scheme-deadline">Application: Rolling</div>
+              </div>
+            </div>
+            <div class="scheme-card-right">
+              <div class="scheme-benefit-amount">
+                <div class="scheme-benefit-label">Max Subsidy</div>
+                <div class="scheme-benefit-value">₹17.5L</div>
+                <div class="scheme-benefit-type">35% of ₹50L</div>
+              </div>
+              <div class="scheme-status-badge status-open">● OPEN</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. CGTMSE -->
+        <div class="scheme-full-card">
+          <div class="scheme-card-top">
+            <div class="scheme-color-bar scheme-bar-blue"></div>
+            <div class="scheme-card-body">
+              <div class="scheme-card-meta">
+                <div class="scheme-ministry-tag">SIDBI / Ministry of Finance</div>
+                <span class="scheme-eligibility-tag elig-matched">✓ You Qualify</span>
+              </div>
+              <div class="scheme-card-title">Credit Guarantee Fund Trust for Micro & Small Enterprises</div>
+              <div class="scheme-card-acronym">CGTMSE — Collateral-Free Credit Guarantee</div>
+              <div class="scheme-card-desc">Enables micro and small enterprises to avail term loans and working capital facilities from banks without collateral or third-party guarantee. The guarantee cover is 75% for general category and 85% for women/NER/micro enterprises. Maximum credit cover extended to ₹2 crore.</div>
+              <div class="scheme-benefits-row">
+                <div class="benefit-chip"><span class="benefit-chip-icon">🔓</span> No collateral required</div>
+                <div class="benefit-chip"><span class="benefit-chip-icon">💰</span> Up to ₹2 Crore</div>
+                <div class="benefit-chip"><span class="benefit-chip-icon">🏦</span> 75–85% guarantee</div>
+                <div class="benefit-chip"><span class="benefit-chip-icon">⚡</span> Working capital too</div>
+              </div>
+              <div class="scheme-actions">
+                <button class="btn-sm primary">Apply via Your Bank →</button>
+                <button class="btn-sm">View Member Banks</button>
+                <div class="scheme-deadline">Application: Rolling</div>
+              </div>
+            </div>
+            <div class="scheme-card-right">
+              <div class="scheme-benefit-amount">
+                <div class="scheme-benefit-label">Max Credit Cover</div>
+                <div class="scheme-benefit-value">₹2 Cr</div>
+                <div class="scheme-benefit-type">Collateral-free</div>
+              </div>
+              <div class="scheme-status-badge status-rolling">● ROLLING</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. CLCSS -->
+        <div class="scheme-full-card">
+          <div class="scheme-card-top">
+            <div class="scheme-color-bar scheme-bar-amber"></div>
+            <div class="scheme-card-body">
+              <div class="scheme-card-meta">
+                <div class="scheme-ministry-tag">Ministry of MSME · DC-MSME</div>
+                <span class="scheme-eligibility-tag elig-check">⚠ Check Eligibility</span>
+              </div>
+              <div class="scheme-card-title">Credit Linked Capital Subsidy Scheme</div>
+              <div class="scheme-card-acronym">CLCSS — Technology Upgradation for Small Industries</div>
+              <div class="scheme-card-desc">Provides 15% upfront capital subsidy to small-scale industries for induction of well-established and improved technology. The ceiling on loans eligible for subsidy is ₹1 crore. This is specifically for technology upgradation — replacing old machinery with modern equipment.</div>
+              <div class="scheme-benefits-row">
+                <div class="benefit-chip"><span class="benefit-chip-icon">⚙️</span> Technology upgradation</div>
+                <div class="benefit-chip"><span class="benefit-chip-icon">📊</span> 15% capital subsidy</div>
+                <div class="benefit-chip"><span class="benefit-chip-icon">💰</span> Up to ₹15L</div>
+                <div class="benefit-chip"><span class="benefit-chip-icon">🏭</span> Manufacturing focus</div>
+              </div>
+              <div class="scheme-actions">
+                <button class="btn-sm primary">Check Eligibility First</button>
+                <button class="btn-sm">View Approved Technologies</button>
+                <div class="scheme-deadline urgent">⚠ Note: Requires prior approval</div>
+              </div>
+            </div>
+            <div class="scheme-card-right">
+              <div class="scheme-benefit-amount">
+                <div class="scheme-benefit-label">Max Subsidy</div>
+                <div class="scheme-benefit-value">₹15L</div>
+                <div class="scheme-benefit-type">Capital subsidy</div>
+              </div>
+              <div class="scheme-status-badge status-open">● OPEN</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. MSME Samadhaan -->
+        <div class="scheme-full-card">
+          <div class="scheme-card-top">
+            <div class="scheme-color-bar scheme-bar-teal"></div>
+            <div class="scheme-card-body">
+              <div class="scheme-card-meta">
+                <div class="scheme-ministry-tag">Ministry of MSME · MSME Samadhaan Portal</div>
+                <span class="scheme-eligibility-tag elig-matched">✓ You Qualify</span>
+              </div>
+              <div class="scheme-card-title">MSME Samadhaan — Delayed Payment Recovery</div>
+              <div class="scheme-card-acronym">MSMED Act, 2006 · Section 15-24 — Statutory Right to Recovery</div>
+              <div class="scheme-card-desc">Under the MSMED Act, any buyer (large company, PSU, or government) who delays payment beyond 45 days to an MSME supplier is liable to pay compound interest at 3× the RBI bank rate. MSME Samadhaan portal allows you to file a facilitation application online to recover overdue payments.</div>
+              <div class="scheme-benefits-row">
+                <div class="benefit-chip"><span class="benefit-chip-icon">⚖️</span> Statutory right</div>
+                <div class="benefit-chip"><span class="benefit-chip-icon">💰</span> 3× RBI rate interest</div>
+                <div class="benefit-chip"><span class="benefit-chip-icon">🏛️</span> Govt facilitation</div>
+                <div class="benefit-chip"><span class="benefit-chip-icon">📱</span> Online portal</div>
+              </div>
+              <div class="scheme-actions">
+                <button class="btn-sm primary">File on Samadhaan Portal →</button>
+                <button class="btn-sm">Calculate Interest Due</button>
+                <div class="scheme-deadline">No deadline — file anytime</div>
+              </div>
+            </div>
+            <div class="scheme-card-right">
+              <div class="scheme-benefit-amount">
+                <div class="scheme-benefit-label">Interest Rate</div>
+                <div class="scheme-benefit-value">3×</div>
+                <div class="scheme-benefit-type">RBI bank rate</div>
+              </div>
+              <div class="scheme-status-badge status-rolling">● ROLLING</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. ZED Certification -->
+        <div class="scheme-full-card">
+          <div class="scheme-card-top">
+            <div class="scheme-color-bar scheme-bar-green"></div>
+            <div class="scheme-card-body">
+              <div class="scheme-card-meta">
+                <div class="scheme-ministry-tag">Ministry of MSME · QCI</div>
+                <span class="scheme-eligibility-tag elig-matched">✓ You Qualify</span>
+              </div>
+              <div class="scheme-card-title">Zero Defect Zero Effect Certification</div>
+              <div class="scheme-card-acronym">ZED — Quality & Sustainability Certification for MSMEs</div>
+              <div class="scheme-card-desc">ZED Certification enhances the competitiveness of MSMEs through a quality certification that is increasingly required for government procurement and export markets. The government subsidises certification costs: Micro: 80%, Small: 60%, Medium: 50%. Additional ₹10,000 incentive for women-owned enterprises.</div>
+              <div class="scheme-benefits-row">
+                <div class="benefit-chip"><span class="benefit-chip-icon">🏅</span> Quality certification</div>
+                <div class="benefit-chip"><span class="benefit-chip-icon">📊</span> 60% fee subsidy</div>
+                <div class="benefit-chip"><span class="benefit-chip-icon">🌐</span> Export access</div>
+                <div class="benefit-chip"><span class="benefit-chip-icon">🏛️</span> Govt tender priority</div>
+              </div>
+              <div class="scheme-actions">
+                <button class="btn-sm primary">Start ZED Assessment →</button>
+                <button class="btn-sm">View Benefits</button>
+                <div class="scheme-deadline">Application: Open</div>
+              </div>
+            </div>
+            <div class="scheme-card-right">
+              <div class="scheme-benefit-amount">
+                <div class="scheme-benefit-label">Certification Subsidy</div>
+                <div class="scheme-benefit-value">60%</div>
+                <div class="scheme-benefit-type">For small enterprises</div>
+              </div>
+              <div class="scheme-status-badge status-open">● OPEN</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. NSIC — Raw Material Assistance -->
+        <div class="scheme-full-card">
+          <div class="scheme-card-top">
+            <div class="scheme-color-bar scheme-bar-blue"></div>
+            <div class="scheme-card-body">
+              <div class="scheme-card-meta">
+                <div class="scheme-ministry-tag">NSIC / Ministry of MSME</div>
+                <span class="scheme-eligibility-tag elig-general">ℹ General Scheme</span>
+              </div>
+              <div class="scheme-card-title">NSIC Raw Material Assistance Scheme</div>
+              <div class="scheme-card-acronym">NSIC-RMA — Funded Raw Material Procurement for MSMEs</div>
+              <div class="scheme-card-desc">National Small Industries Corporation finances raw material procurement for MSMEs — both indigenous and imported. MSMEs can get credit on easy terms with shorter processing time than conventional bank credit. Also provides single-point registration for government purchase.</div>
+              <div class="scheme-benefits-row">
+                <div class="benefit-chip"><span class="benefit-chip-icon">🏭</span> Raw material funding</div>
+                <div class="benefit-chip"><span class="benefit-chip-icon">🚀</span> Fast processing</div>
+                <div class="benefit-chip"><span class="benefit-chip-icon">🏛️</span> Govt purchase reg.</div>
+                <div class="benefit-chip"><span class="benefit-chip-icon">💰</span> Concessional rates</div>
+              </div>
+              <div class="scheme-actions">
+                <button class="btn-sm primary">Register with NSIC →</button>
+                <button class="btn-sm">Calculate Benefit</button>
+                <div class="scheme-deadline">Application: Rolling</div>
+              </div>
+            </div>
+            <div class="scheme-card-right">
+              <div class="scheme-benefit-amount">
+                <div class="scheme-benefit-label">Benefit Type</div>
+                <div class="scheme-benefit-value">Credit</div>
+                <div class="scheme-benefit-type">Concessional terms</div>
+              </div>
+              <div class="scheme-status-badge status-rolling">● ROLLING</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Maharashtra State Scheme -->
+        <div style="margin:20px 0 12px;">
+          <div class="card-title" style="padding:0;font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);font-family:'IBM Plex Mono',monospace;">Maharashtra State Schemes</div>
+        </div>
+
+        <div class="scheme-full-card">
+          <div class="scheme-card-top">
+            <div class="scheme-color-bar scheme-bar-purple"></div>
+            <div class="scheme-card-body">
+              <div class="scheme-card-meta">
+                <div class="scheme-ministry-tag">Govt of Maharashtra · MIDC / MSMEDI</div>
+                <span class="scheme-eligibility-tag elig-matched">✓ You Qualify · MH Resident</span>
+              </div>
+              <div class="scheme-card-title">Maharashtra MSME Development Policy 2019 — Capital Subsidy</div>
+              <div class="scheme-card-acronym">MH MSME Policy — State-level Investment Incentive</div>
+              <div class="scheme-card-desc">Maharashtra's MSME policy provides capital subsidies, power tariff subsidies, stamp duty exemption, and GST refunds for qualifying small enterprises in identified districts. Mumbai/Thane/Pune area enterprises get 10% subsidy; less-developed districts get up to 30%. Power tariff subsidy of ₹1/unit for 5 years.</div>
+              <div class="scheme-benefits-row">
+                <div class="benefit-chip"><span class="benefit-chip-icon">📊</span> 10–30% capital subsidy</div>
+                <div class="benefit-chip"><span class="benefit-chip-icon">⚡</span> Power tariff rebate</div>
+                <div class="benefit-chip"><span class="benefit-chip-icon">🏛️</span> Stamp duty exemption</div>
+                <div class="benefit-chip"><span class="benefit-chip-icon">💸</span> GST refund</div>
+              </div>
+              <div class="scheme-actions">
+                <button class="btn-sm primary">Apply via Aaple Sarkar →</button>
+                <button class="btn-sm">Check District Benefits</button>
+                <div class="scheme-deadline urgent">⚠ Apply before 31 Mar 2025</div>
+              </div>
+            </div>
+            <div class="scheme-card-right">
+              <div class="scheme-benefit-amount">
+                <div class="scheme-benefit-label">Capital Subsidy</div>
+                <div class="scheme-benefit-value">10%</div>
+                <div class="scheme-benefit-type">Mumbai/Thane zone</div>
+              </div>
+              <div class="scheme-status-badge status-closing">⚡ CLOSING SOON</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI Insight -->
+        <div class="ai-insight" style="margin-top:8px;">
+          <div class="ai-insight-header">
+            <div class="ai-badge"><div style="width:4px;height:4px;background:white;border-radius:50%;animation:ai-pulse 1.5s infinite;"></div> AI Scheme Advisor</div>
+            <div class="ai-confidence">Confidence: 94%</div>
+          </div>
+          <div class="ai-text">
+            Your top priority action: Apply for <strong>CGTMSE</strong> — you can get a collateral-free working capital limit of up to ₹25L from your existing banker (HDFC/ICICI) without pledging any property. Second priority: File on <strong>MSME Samadhaan</strong> for the ₹1.8L overdue from Reliance Retail (>90 days outstanding) — you are entitled to 3× RBI rate compound interest automatically.
+          </div>
+          <div class="ai-explain">How was this calculated? ↗</div>
+        </div>
+
+      </div>
+    </div>
+    <!-- END SCHEMES PAGE -->
+
     <!-- ==================== FILINGS ==================== -->
     <div id="page-filings" class="page-section">
       <div class="content">
@@ -3371,6 +4459,13 @@ function showPage(page) {
 
 // Initialize — show landing first
 showPage('landing');
+
+document.querySelectorAll('.scheme-filter').forEach(btn => {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.scheme-filter').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
 
 // Toggle buttons interactivity
 document.querySelectorAll('.filter-btn').forEach(btn => {
