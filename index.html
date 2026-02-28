@@ -1987,6 +1987,478 @@ body {
 
 .elig-result-text strong { color: var(--green); }
 
+/* ─── FLOATING AI CHATBOT ─── */
+#aria-fab {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 9999;
+}
+
+.aria-trigger {
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, #2979FF, #1A56CC);
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  box-shadow: 0 6px 24px rgba(41,121,255,0.4);
+  transition: all 0.2s;
+  position: relative;
+}
+
+.aria-trigger:hover {
+  transform: scale(1.08);
+  box-shadow: 0 8px 32px rgba(41,121,255,0.55);
+}
+
+.aria-trigger-pulse {
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid rgba(41,121,255,0.4);
+  animation: aria-pulse-ring 2s ease-out infinite;
+}
+
+@keyframes aria-pulse-ring {
+  0% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(1.4); opacity: 0; }
+}
+
+.aria-notif {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 16px;
+  height: 16px;
+  background: #C62828;
+  border-radius: 50%;
+  border: 2px solid white;
+  font-size: 8px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 700;
+}
+
+/* Chatbox window */
+.aria-box {
+  position: fixed;
+  bottom: 96px;
+  right: 28px;
+  width: 420px;
+  height: 620px;
+  background: var(--navy);
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.07);
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 9998;
+  transform: scale(0.95) translateY(10px);
+  transform-origin: bottom right;
+  opacity: 0;
+  transition: all 0.22s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+.aria-box.open {
+  display: flex;
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+/* Header */
+.aria-header {
+  padding: 14px 18px;
+  background: rgba(255,255,255,0.04);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.aria-header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.aria-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2979FF, #1A56CC);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  position: relative;
+}
+
+.aria-online {
+  position: absolute;
+  bottom: 1px;
+  right: 1px;
+  width: 9px;
+  height: 9px;
+  background: #2E7D32;
+  border-radius: 50%;
+  border: 2px solid var(--navy);
+}
+
+.aria-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+}
+
+.aria-status {
+  font-size: 10px;
+  color: rgba(255,255,255,0.4);
+}
+
+.aria-status.thinking {
+  color: #90CAF9;
+}
+
+.aria-header-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.aria-btn-sm {
+  width: 28px;
+  height: 28px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: rgba(255,255,255,0.5);
+  transition: all 0.15s;
+}
+
+.aria-btn-sm:hover {
+  background: rgba(255,255,255,0.1);
+  color: white;
+}
+
+/* Topics */
+.aria-topics {
+  display: flex;
+  gap: 6px;
+  padding: 8px 16px;
+  overflow-x: auto;
+  flex-shrink: 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  scrollbar-width: none;
+}
+
+.aria-topics::-webkit-scrollbar { display: none; }
+
+.aria-topic-btn {
+  padding: 3px 10px;
+  border-radius: 3px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.04);
+  font-size: 10px;
+  color: rgba(255,255,255,0.5);
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: 'IBM Plex Mono', monospace;
+  letter-spacing: 0.3px;
+  transition: all 0.15s;
+}
+
+.aria-topic-btn:hover {
+  background: rgba(41,121,255,0.15);
+  border-color: rgba(41,121,255,0.3);
+  color: #90CAF9;
+}
+
+/* Messages */
+.aria-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.1) transparent;
+}
+
+.aria-messages::-webkit-scrollbar { width: 3px; }
+.aria-messages::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+
+.aria-msg {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.aria-msg.user {
+  flex-direction: row-reverse;
+}
+
+.aria-msg-avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+.aria-msg-avatar.bot {
+  background: linear-gradient(135deg, #2979FF, #1A56CC);
+}
+
+.aria-msg-avatar.user-av {
+  background: rgba(249,168,37,0.2);
+  border: 1px solid rgba(249,168,37,0.25);
+}
+
+.aria-bubble {
+  max-width: 85%;
+  padding: 10px 13px;
+  border-radius: 4px 12px 12px 12px;
+  font-size: 12.5px;
+  line-height: 1.65;
+  color: rgba(255,255,255,0.85);
+}
+
+.aria-bubble.bot {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.aria-bubble.bot.welcome {
+  background: rgba(41,121,255,0.08);
+  border-color: rgba(41,121,255,0.18);
+}
+
+.aria-bubble.user-msg {
+  background: linear-gradient(135deg, #2979FF, #1565C0);
+  border-radius: 12px 4px 12px 12px;
+  color: white;
+}
+
+.aria-bubble-time {
+  font-size: 9px;
+  color: rgba(255,255,255,0.2);
+  text-align: right;
+  margin-top: 4px;
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+/* Typing indicator */
+.aria-typing {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  padding: 10px 14px;
+}
+
+.aria-typing span {
+  width: 6px;
+  height: 6px;
+  background: #2979FF;
+  border-radius: 50%;
+  animation: aria-bounce 1.2s ease-in-out infinite;
+}
+
+.aria-typing span:nth-child(2) { animation-delay: 0.2s; }
+.aria-typing span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes aria-bounce {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+  30% { transform: translateY(-5px); opacity: 1; }
+}
+
+/* Suggestions */
+.aria-suggestions {
+  padding: 0 14px 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  flex-shrink: 0;
+}
+
+.aria-sugg-btn {
+  padding: 4px 9px;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.09);
+  font-size: 10.5px;
+  color: rgba(255,255,255,0.55);
+  cursor: pointer;
+  font-family: 'IBM Plex Sans', sans-serif;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.aria-sugg-btn:hover {
+  background: rgba(41,121,255,0.1);
+  border-color: rgba(41,121,255,0.25);
+  color: white;
+}
+
+/* Input */
+.aria-input-wrap {
+  padding: 10px 14px;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  background: rgba(255,255,255,0.02);
+  flex-shrink: 0;
+}
+
+.aria-input-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px;
+  padding: 8px 12px;
+  transition: border-color 0.15s;
+}
+
+.aria-input-row:focus-within {
+  border-color: rgba(41,121,255,0.4);
+}
+
+.aria-input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  font-size: 12.5px;
+  color: rgba(255,255,255,0.85);
+  font-family: 'IBM Plex Sans', sans-serif;
+  resize: none;
+  line-height: 1.4;
+  max-height: 70px;
+  overflow-y: auto;
+}
+
+.aria-input::placeholder {
+  color: rgba(255,255,255,0.22);
+}
+
+.aria-send-btn {
+  width: 30px;
+  height: 30px;
+  background: #2979FF;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: white;
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+
+.aria-send-btn:hover { background: #1A56CC; }
+.aria-send-btn:disabled { background: rgba(255,255,255,0.08); cursor: default; }
+
+.aria-hint {
+  font-size: 9px;
+  color: rgba(255,255,255,0.15);
+  font-family: 'IBM Plex Mono', monospace;
+  text-align: center;
+  margin-top: 5px;
+}
+
+/* ─── AI INLINE BOXES (on pages) ─── */
+.ai-inline-widget {
+  background: linear-gradient(135deg, #0B1F3B, #0F2A4F);
+  border: 1px solid rgba(41,121,255,0.2);
+  border-left: 3px solid #2979FF;
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin: 12px 0;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.ai-inline-widget::after {
+  content: 'ASK ARIA →';
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 9px;
+  color: rgba(41,121,255,0.6);
+  font-family: 'IBM Plex Mono', monospace;
+  letter-spacing: 1px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.ai-inline-widget:hover::after { opacity: 1; }
+
+.ai-inline-widget:hover {
+  border-color: rgba(41,121,255,0.4);
+  box-shadow: 0 4px 16px rgba(41,121,255,0.1);
+}
+
+.ai-inline-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.ai-inline-label {
+  font-size: 9px;
+  background: #2979FF;
+  color: white;
+  padding: 2px 7px;
+  border-radius: 10px;
+  font-family: 'IBM Plex Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.ai-inline-conf {
+  font-size: 10px;
+  color: rgba(255,255,255,0.3);
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.ai-inline-text {
+  font-size: 12px;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.6;
+}
+
+.ai-inline-text strong {
+  color: rgba(255,255,255,0.9);
+}
+
 /* ─── RESPONSIVE ─── */
 @media (max-width: 1100px) {
   .grid-3 { grid-template-columns: 1fr 1fr; }
@@ -2531,6 +3003,11 @@ body {
 
     <div class="nav-section">
       <div class="nav-label">Intelligence</div>
+      <div class="nav-item" onclick="showPage('aria')" style="background:linear-gradient(90deg,rgba(41,121,255,0.12),transparent);border-left:2px solid var(--blue);">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 2"/><circle cx="8" cy="8" r="2" fill="currentColor" stroke="none" opacity="0.4"/></svg>
+        <span style="color:white;font-weight:500;">ARIA Assistant</span>
+        <span style="margin-left:auto;width:6px;height:6px;background:#2979FF;border-radius:50%;animation:ai-pulse 1.5s infinite;"></span>
+      </div>
       <div class="nav-item" onclick="showPage('projections')">
         <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 12L5 7l4 2 5-7"/><path d="M13 5h2v2"/></svg>
         Financial Projections
@@ -3758,6 +4235,107 @@ body {
       </div>
     </div>
 
+    <!-- ==================== ARIA FULL PAGE ==================== -->
+    <div id="page-aria" class="page-section" style="padding:0;">
+      <div style="display:flex;height:calc(100vh - var(--header-h));overflow:hidden;">
+
+        <!-- LEFT PANEL -->
+        <div style="width:252px;flex-shrink:0;background:var(--navy);border-right:1px solid rgba(255,255,255,0.07);display:flex;flex-direction:column;overflow-y:auto;">
+          <div style="padding:20px 18px 16px;border-bottom:1px solid rgba(255,255,255,0.07);">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+              <div style="width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#2979FF,#1A56CC);display:flex;align-items:center;justify-content:center;font-size:20px;position:relative;flex-shrink:0;">🧠<div style="position:absolute;bottom:1px;right:1px;width:11px;height:11px;background:#2E7D32;border-radius:50%;border:2px solid var(--navy);"></div></div>
+              <div>
+                <div style="font-size:16px;font-weight:700;color:white;letter-spacing:-0.3px;">ARIA</div>
+                <div style="font-size:10px;color:rgba(255,255,255,0.35);font-family:'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:1px;">AI Regulatory Intelligence</div>
+              </div>
+            </div>
+            <div style="background:rgba(41,121,255,0.1);border:1px solid rgba(41,121,255,0.2);border-radius:6px;padding:10px 12px;">
+              <div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.3);font-family:'IBM Plex Mono',monospace;margin-bottom:3px;">Active Business</div>
+              <div style="font-size:12px;font-weight:600;color:white;margin-bottom:1px;">Krishnamurthy Retail Pvt. Ltd.</div>
+              <div style="font-size:10px;color:rgba(255,255,255,0.4);font-family:'IBM Plex Mono',monospace;">MH · Retail · 27AAFCK5570M1ZH</div>
+            </div>
+          </div>
+
+          <div style="padding:14px 18px;border-bottom:1px solid rgba(255,255,255,0.07);">
+            <div style="font-size:9px;text-transform:uppercase;letter-spacing:1.2px;color:rgba(255,255,255,0.25);font-family:'IBM Plex Mono',monospace;margin-bottom:8px;">Compliance Snapshot</div>
+            <div style="display:flex;align-items:flex-end;gap:6px;margin-bottom:6px;"><div style="font-size:38px;font-weight:700;font-family:'IBM Plex Mono',monospace;color:#F9A825;line-height:1;">648</div><div style="font-size:13px;color:rgba(255,255,255,0.2);font-family:'IBM Plex Mono',monospace;margin-bottom:4px;">/900</div></div>
+            <div style="height:3px;background:rgba(255,255,255,0.07);border-radius:2px;overflow:hidden;margin-bottom:8px;"><div style="height:100%;width:72%;background:linear-gradient(90deg,#F9A825,#FFD54F);border-radius:2px;"></div></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;">
+              <div style="background:rgba(198,40,40,0.12);border-radius:5px;padding:6px;text-align:center;"><div style="font-size:16px;font-weight:700;font-family:'IBM Plex Mono',monospace;color:#EF5350;">2</div><div style="font-size:9px;color:rgba(255,255,255,0.3);">Notices</div></div>
+              <div style="background:rgba(249,168,37,0.1);border-radius:5px;padding:6px;text-align:center;"><div style="font-size:16px;font-weight:700;font-family:'IBM Plex Mono',monospace;color:#F9A825;">3</div><div style="font-size:9px;color:rgba(255,255,255,0.3);">Due Soon</div></div>
+              <div style="background:rgba(46,125,50,0.12);border-radius:5px;padding:6px;text-align:center;"><div style="font-size:16px;font-weight:700;font-family:'IBM Plex Mono',monospace;color:#81C784;">+12</div><div style="font-size:9px;color:rgba(255,255,255,0.3);">30d Score</div></div>
+            </div>
+          </div>
+
+          <div style="padding:14px 18px;border-bottom:1px solid rgba(255,255,255,0.07);">
+            <div style="font-size:9px;text-transform:uppercase;letter-spacing:1.2px;color:rgba(198,40,40,0.6);font-family:'IBM Plex Mono',monospace;margin-bottom:8px;">⚠ Urgent — Click to Ask ARIA</div>
+            <div onclick="fullAriaAsk('I have an Income Tax scrutiny notice under section 143(2) for AY 2023-24 which is already overdue. What exactly do I need to do step by step? What are the consequences and can I still respond?')" style="background:rgba(198,40,40,0.08);border:1px solid rgba(198,40,40,0.15);border-radius:6px;padding:9px 11px;margin-bottom:6px;cursor:pointer;transition:background 0.15s;" onmouseover="this.style.background='rgba(198,40,40,0.15)'" onmouseout="this.style.background='rgba(198,40,40,0.08)'">
+              <div style="font-size:12px;font-weight:600;color:rgba(255,255,255,0.8);margin-bottom:2px;">IT Scrutiny Notice 143(2)</div>
+              <div style="font-size:10px;color:#EF5350;font-family:'IBM Plex Mono',monospace;">AY 2023-24 · Response overdue</div>
+            </div>
+            <div onclick="fullAriaAsk('I have a GST mismatch notice for GSTR-2A vs GSTR-3B for November 2024. How do I resolve this? What documents do I need and what is the process to reply?')" style="background:rgba(249,168,37,0.07);border:1px solid rgba(249,168,37,0.15);border-radius:6px;padding:9px 11px;cursor:pointer;transition:background 0.15s;" onmouseover="this.style.background='rgba(249,168,37,0.14)'" onmouseout="this.style.background='rgba(249,168,37,0.07)'">
+              <div style="font-size:12px;font-weight:600;color:rgba(255,255,255,0.8);margin-bottom:2px;">GST Mismatch — Nov 2024</div>
+              <div style="font-size:10px;color:#F9A825;font-family:'IBM Plex Mono',monospace;">GSTR-2A vs 3B · Action needed</div>
+            </div>
+          </div>
+
+          <div style="padding:14px 18px;flex:1;">
+            <div style="font-size:9px;text-transform:uppercase;letter-spacing:1.2px;color:rgba(255,255,255,0.25);font-family:'IBM Plex Mono',monospace;margin-bottom:8px;">Ask By Topic</div>
+            <div id="ariaTopicList"></div>
+          </div>
+
+          <div style="padding:12px 18px;border-top:1px solid rgba(255,255,255,0.07);">
+            <div style="font-size:9px;color:rgba(255,255,255,0.2);margin-bottom:6px;font-family:'IBM Plex Mono',monospace;">KNOWLEDGE BASE</div>
+            <div style="display:flex;flex-wrap:wrap;gap:4px;" id="ariaLawTags"></div>
+          </div>
+        </div>
+
+        <!-- MAIN CHAT -->
+        <div style="flex:1;display:flex;flex-direction:column;background:var(--navy);overflow:hidden;">
+          <div style="padding:14px 20px;border-bottom:1px solid rgba(255,255,255,0.07);background:rgba(255,255,255,0.02);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="font-size:14px;font-weight:600;color:white;">Ask ARIA anything about Indian compliance</div>
+              <div style="padding:3px 8px;background:rgba(41,121,255,0.15);border:1px solid rgba(41,121,255,0.25);border-radius:3px;font-size:9px;color:#90CAF9;font-family:'IBM Plex Mono',monospace;" id="fullAriaStatusBadge">● Online · FY 2024-25</div>
+            </div>
+            <button onclick="fullAriaClear()" style="padding:5px 12px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:5px;font-size:11px;color:rgba(255,255,255,0.5);cursor:pointer;font-family:'IBM Plex Sans',sans-serif;">Clear Chat</button>
+          </div>
+
+          <div id="fullAriaMessages" style="flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:14px;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,0.08) transparent;"></div>
+
+          <div style="padding:14px 20px;border-top:1px solid rgba(255,255,255,0.07);background:rgba(255,255,255,0.015);flex-shrink:0;">
+            <div id="fullAriaSugg" style="display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap;"></div>
+            <div style="display:flex;gap:10px;align-items:flex-end;">
+              <div style="flex:1;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:11px 14px;display:flex;align-items:flex-start;gap:8px;transition:border-color 0.15s;" onfocus="this.style.borderColor='rgba(41,121,255,0.4)'" onblur="this.style.borderColor='rgba(255,255,255,0.12)'">
+                <textarea id="fullAriaInput" rows="1" placeholder="Type your compliance question — GST, income tax, MSME schemes, business law, notices..."
+                  style="flex:1;background:transparent;border:none;outline:none;font-size:13px;color:rgba(255,255,255,0.85);font-family:'IBM Plex Sans',sans-serif;resize:none;line-height:1.5;max-height:100px;overflow-y:auto;"
+                  onkeydown="handleFullAriaKey(event)"
+                  oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,100)+'px';updateFullSendBtn();"></textarea>
+              </div>
+              <button id="fullAriaSendBtn" onclick="fullAriaSend()" disabled
+                style="width:46px;height:46px;background:rgba(255,255,255,0.08);border:none;border-radius:10px;cursor:default;display:flex;align-items:center;justify-content:center;font-size:20px;color:rgba(255,255,255,0.3);flex-shrink:0;transition:all 0.15s;">↑</button>
+            </div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.15);font-family:'IBM Plex Mono',monospace;margin-top:6px;display:flex;justify-content:space-between;">
+              <span>Enter to send · Shift+Enter for new line</span>
+              <span>Not a substitute for professional legal or CA advice</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT PANEL -->
+        <div style="width:232px;flex-shrink:0;background:rgba(8,18,34,0.9);border-left:1px solid rgba(255,255,255,0.07);display:flex;flex-direction:column;overflow-y:auto;">
+          <div style="padding:14px 14px 10px;">
+            <div style="font-size:9px;text-transform:uppercase;letter-spacing:1.2px;color:rgba(255,255,255,0.25);font-family:'IBM Plex Mono',monospace;margin-bottom:10px;">Common Questions</div>
+            <div id="ariaCommonQs"></div>
+          </div>
+          <div style="margin:4px 12px 12px;padding:12px 14px;background:rgba(249,168,37,0.05);border:1px solid rgba(249,168,37,0.12);border-radius:8px;">
+            <div style="font-size:9px;color:rgba(249,168,37,0.6);font-family:'IBM Plex Mono',monospace;margin-bottom:4px;">⚠ DISCLAIMER</div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.3);line-height:1.6;">ARIA provides general information based on publicly available Indian law as of FY 2024-25. Always verify critical compliance actions with a qualified CA, CS, or advocate.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END ARIA FULL PAGE -->
+
     <!-- ==================== PROJECTIONS ==================== -->
     <div id="page-projections" class="page-section">
       <div class="content">
@@ -4498,5 +5076,1743 @@ setTimeout(() => {
   });
 }, 300);
 </script>
+<!-- ═══════════════════ ARIA FLOATING CHATBOT ═══════════════════ -->
+<div id="aria-fab">
+  <button class="aria-trigger" onclick="toggleARIA()" id="ariaTrigger" title="Ask ARIA — AI Compliance Assistant">
+    <div class="aria-trigger-pulse"></div>
+    <div class="aria-notif" id="ariaNotif">3</div>
+    <span id="ariaIcon">
+      <svg width="32" height="32" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Lawyer chibi body -->
+        <circle cx="32" cy="20" r="13" fill="#FFDAB9"/>
+        <!-- Hair -->
+        <ellipse cx="32" cy="9" rx="13" ry="7" fill="#2C1810"/>
+        <rect x="19" y="9" width="4" height="10" rx="2" fill="#2C1810"/>
+        <rect x="41" y="9" width="4" height="10" rx="2" fill="#2C1810"/>
+        <!-- Face details -->
+        <circle cx="27" cy="20" r="1.5" fill="#333"/>
+        <circle cx="37" cy="20" r="1.5" fill="#333"/>
+        <path d="M28 26 Q32 29 36 26" stroke="#E88" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+        <!-- Suit body -->
+        <rect x="20" y="33" width="24" height="22" rx="3" fill="#1A2744"/>
+        <!-- White shirt & tie -->
+        <rect x="28" y="33" width="8" height="22" rx="1" fill="white"/>
+        <polygon points="32,35 30,42 32,43 34,42" fill="#C62828"/>
+        <!-- Collar -->
+        <polygon points="28,33 32,39 24,33" fill="white"/>
+        <polygon points="36,33 32,39 40,33" fill="white"/>
+        <!-- Arms -->
+        <rect x="10" y="34" width="11" height="7" rx="3" fill="#1A2744"/>
+        <rect x="43" y="34" width="11" height="7" rx="3" fill="#1A2744"/>
+        <!-- Briefcase in right hand -->
+        <rect x="46" y="41" width="9" height="7" rx="2" fill="#8B6914"/>
+        <rect x="48" y="39" width="5" height="3" rx="1" fill="#8B6914"/>
+        <line x1="46" y1="44" x2="55" y2="44" stroke="#6B4F10" stroke-width="1"/>
+        <!-- Graduation cap -->
+        <rect x="22" y="6" width="20" height="3" rx="1" fill="#1A1A1A"/>
+        <polygon points="32,1 42,7 22,7" fill="#1A1A1A"/>
+        <line x1="40" y1="7" x2="43" y2="12" stroke="#C62828" stroke-width="1.5"/>
+        <circle cx="43" cy="13" r="1.5" fill="#C62828"/>
+      </svg>
+    </span>
+  </button>
+
+  <div class="aria-box" id="ariaBox">
+    <!-- Header -->
+    <div class="aria-header">
+      <div class="aria-header-left">
+        <div class="aria-avatar"><svg width="22" height="22" viewBox="0 0 64 64" fill="none"><circle cx="32" cy="20" r="13" fill="#FFDAB9"/><ellipse cx="32" cy="9" rx="13" ry="7" fill="#2C1810"/><rect x="19" y="9" width="4" height="10" rx="2" fill="#2C1810"/><rect x="41" y="9" width="4" height="10" rx="2" fill="#2C1810"/><circle cx="27" cy="20" r="1.5" fill="#333"/><circle cx="37" cy="20" r="1.5" fill="#333"/><path d="M28 26 Q32 29 36 26" stroke="#E88" stroke-width="1.5" stroke-linecap="round" fill="none"/><rect x="20" y="33" width="24" height="22" rx="3" fill="#1A2744"/><rect x="28" y="33" width="8" height="22" rx="1" fill="white"/><polygon points="32,35 30,42 32,43 34,42" fill="#C62828"/><polygon points="28,33 32,39 24,33" fill="white"/><polygon points="36,33 32,39 40,33" fill="white"/><rect x="22" y="6" width="20" height="3" rx="1" fill="#1A1A1A"/><polygon points="32,1 42,7 22,7" fill="#1A1A1A"/></svg><div class="aria-online"></div></div>
+        <div>
+          <div class="aria-name">ARIA</div>
+          <div class="aria-status" id="ariaStatus">AI Regulatory Intelligence · Online</div>
+        </div>
+      </div>
+      <div class="aria-header-actions">
+        <button class="aria-btn-sm" onclick="openFullARIA()" title="Open full view">⤢</button>
+        <button class="aria-btn-sm" onclick="clearARIA()" title="Clear chat">🗑️</button>
+        <button class="aria-btn-sm" onclick="toggleARIA()" title="Close">✕</button>
+      </div>
+    </div>
+
+    <!-- Messages -->
+    <div class="aria-messages" id="ariaMessages"></div>
+
+    <!-- 2 contextual suggestions — shown only after welcome, hidden once user types -->
+    <div class="aria-suggestions" id="ariaSuggestions" style="display:none;">
+      <button class="aria-sugg-btn" id="ariaSugg1" onclick="ariaSuggClick(0)"></button>
+      <button class="aria-sugg-btn" id="ariaSugg2" onclick="ariaSuggClick(1)"></button>
+    </div>
+
+    <!-- Input -->
+    <div class="aria-input-wrap">
+      <div class="aria-input-row">
+        <textarea class="aria-input" id="ariaInput" placeholder="Type your compliance question..." rows="1"
+          onkeydown="handleAriaKey(event)"
+          oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,70)+'px';updateSendBtn();"></textarea>
+        <button class="aria-send-btn" id="ariaSendBtn" onclick="ariaSendMsg()" disabled>↑</button>
+      </div>
+      <div class="aria-hint">Enter to send · Shift+Enter for newline · Not legal advice</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═════════════════ ARIA JAVASCRIPT ═════════════════ -->
+<script>
+// ─── SYSTEM PROMPT ────────────────────────────────────────────────────────────
+const ARIA_SYSTEM = `You are ARIA — the AI Regulatory Intelligence Assistant embedded inside ComplianceOS, India's compliance infrastructure platform for MSMEs.
+
+You are an expert in:
+- Indian business law (Companies Act 2013, LLP Act 2008, Partnership Act 1932, FEMA, PMLA, Competition Act)
+- GST (CGST, SGST, IGST, UTGST) — returns (GSTR-1, 2A, 2B, 3B, 9, 9C), ITC rules, e-invoicing thresholds, e-way bills, scrutiny notices, GSTR-2A vs 3B mismatch resolution, annual return, cancellation
+- Income Tax (ITR 1/2/3/4/5/6 filing, Section 44AD/44ADA presumptive taxation, TDS/TCS under sections 192/194C/194J/194I etc, advance tax schedule, scrutiny notices u/s 143(1)/143(2)/148, ITAT appeals, interest u/s 234A/B/C, penalties u/s 271, 270A)
+- MCA/ROC filings (AOC-4, MGT-7, MGT-7A, DIR-3 KYC, INC-20A, CHG-1, ADT-1, MGT-14, PAS-3, SH-7, Form 8/11 for LLP, strike off procedure, DIN application, board resolutions)
+- MSME/Udyam registration, MSMED Act 2006 Sections 15-24 delayed payment provisions, priority sector lending, GeM portal
+- Government schemes: PMEGP, CGTMSE, CLCSS, ZED Certification, NSIC, MUDRA loans (Shishu/Kishore/Tarun), Stand-Up India, Start-Up India, PM Vishwakarma Yojana, MSME Samadhaan, PM SVANidhi, PLI schemes, SIDBI schemes, Maharashtra MSME Policy, state-level subsidies
+- Labour laws: EPF Act 1952, ESIC Act 1948, Professional Tax rates by state, Contract Labour Act 1970, Shops & Establishments Act, Minimum Wages Act, Payment of Wages Act, Payment of Bonus Act 1965, Gratuity Act 1972, Maternity Benefit Act, POSH Act, Industrial Disputes Act
+- RBI/FEMA: export/import compliance, ODI, FDI regulations, FIRC, LRS, ECIB, EEFC accounts
+- Intellectual property: trademark registration (Form TM-A, IP India portal), patent filing, copyright, GI tags, design registration
+- Environmental/industry compliance: FSSAI registration and licensing, BIS certification, pollution control NOC, drug licensing
+- Legal notices: response drafting, limitation periods, jurisdiction, NCLT/NCLAT, consumer forum
+- Penalty calculations: GST late fees (₹50/day nil, ₹200/day non-nil, max ₹10,000), GST interest 18% p.a., IT interest u/s 234A/B/C, penalties u/s 271
+- Business structuring: Sole Proprietorship vs Partnership vs LLP vs Pvt Ltd vs OPC comparison
+- Maharashtra-specific: Shops Act, Professional Tax, MIDC, Mumbai Municipal Corporation, state GST procedures
+
+BUSINESS CONTEXT:
+- Company: Krishnamurthy Retail Pvt. Ltd.
+- GSTIN: 27AAFCK5570M1ZH (Maharashtra, Regular scheme)
+- MCA CIN: U52100MH2018PTC12345
+- Udyam: MH-19-0034521 (Small Enterprise · Retail Trade)
+- State: Maharashtra · Zone: Mumbai/Thane
+- Turnover: ~₹1.02 Crore (₹8.5L/month)
+- Employees: 14 · Constitution: Private Limited Company
+- Compliance Score: 648/900 (Fair)
+- Active Issues: (1) IT Scrutiny Notice u/s 143(2) AY 2023-24 — overdue; (2) GST Mismatch GSTR-2A vs 3B Nov 2024
+
+RESPONSE STYLE:
+- Cite specific section numbers, form names, and exact due dates
+- Use Indian number format: ₹1,00,000 (lakh), ₹1,00,00,000 (crore)
+- Bold key terms, section numbers, deadlines, amounts using **bold**
+- Structure longer answers with clear ## Section headers
+- For scheme questions: eligibility, benefit amount, application portal
+- For notice questions: required action, deadline, consequence, CA/advocate recommendation
+- Be direct and give concrete actionable steps
+- Keep responses focused and concise. No unnecessary preamble.`;
+
+// ─── STATE ────────────────────────────────────────────────────────────────────
+let ariaOpen = false;
+let ariaMessages = [];        // floating chatbot messages
+let fullAriaMessages = [];    // full page messages
+let ariaLoading = false;
+let fullAriaLoading = false;
+let ariaFirstMessage = true;  // track if user has sent first message (floating)
+let fullAriaFirstMessage = true; // track for full page
+
+// 2 dynamic suggestions — updated based on page context
+const ARIA_CONTEXT_SUGGESTIONS = {
+  dashboard:   ["⚠️ How do I resolve my IT scrutiny notice?", "📋 What's my next GST deadline?"],
+  timeline:    ["📅 Explain my upcoming filing obligations", "⚠️ What happens if I miss GSTR-3B?"],
+  score:       ["📈 How can I improve my compliance score to 750?", "🔍 Why is my notice resolution score low?"],
+  notices:     ["⚖️ How to respond to a 143(2) scrutiny notice?", "📝 Draft a reply to GST mismatch notice"],
+  vault:       ["📄 What documents must I retain for 7 years?", "🔒 What documents are needed for a GST audit?"],
+  templates:   ["📋 What clauses must an employment contract have?", "⚖️ What is a valid NDA under Indian law?"],
+  projections: ["💰 When must I pay advance tax?", "📊 How is GST calculated on my revenue?"],
+  updates:     ["📡 How does the new GSTR-1A amendment affect me?", "🏛️ What does MGT-7A change mean for my company?"],
+  schemes:     ["💰 How do I apply for CGTMSE?", "🏛️ Am I eligible for PMEGP subsidy?"],
+  filings:     ["📋 What are penalties for late GSTR-3B?", "⏰ What is the TDS return due date?"],
+  default:     ["📋 What are my compliance obligations?", "💰 Which government schemes can I apply for?"],
+};
+
+let currentPageKey = "default";
+
+// ─── TOPIC DATA ───────────────────────────────────────────────────────────────
+const ARIA_TOPICS = [
+  ["📋","GST","Returns, ITC, e-invoice, penalty","What are my complete GST obligations — GSTR-1, GSTR-3B due dates, e-invoicing applicability, ITC rules and penalty for late filing?"],
+  ["💼","Income Tax","ITR, TDS, notices, advance tax","Explain all income tax compliance for my private limited company — ITR type, TDS obligations under 194C and 192, advance tax schedule."],
+  ["🏛️","MCA / ROC","Annual filings, DIR-3, forms","What are all the MCA/ROC annual compliance requirements for my private limited company — AOC-4, MGT-7 due dates, DIR-3 KYC, penalties?"],
+  ["💰","Gov Schemes","PMEGP, CGTMSE, MUDRA","What are the top government schemes I should apply for as a registered MSME in Maharashtra retail? Give eligibility, benefit, and how to apply."],
+  ["👷","Labour Law","PF, ESIC, PT, min wages","What are my labour law obligations with 14 employees in Maharashtra — PF, ESIC, professional tax, minimum wages compliance?"],
+  ["⚖️","Legal Notices","Draft responses, appeals","How do I respond to my IT scrutiny notice and GST mismatch notice? What are my rights?"],
+  ["🌐","FEMA / RBI","Export, import, FDI","What FEMA compliance does my retail business need for imports or foreign transactions?"],
+  ["™️","Trademark","Registration, protection","How do I register a trademark for my business name in India? Process, cost, timeline."],
+];
+
+const ARIA_COMMON_QS = [
+  ["📋","What are my GST filing deadlines for February 2025?"],
+  ["⚖️","How do I respond to IT scrutiny notice u/s 143(2)?"],
+  ["💰","Am I eligible for CGTMSE collateral-free loan?"],
+  ["📊","Calculate my GST late fee for GSTR-3B delay"],
+  ["🏛️","What MCA forms must I file this year?"],
+  ["👷","What is my PF contribution and filing obligation?"],
+  ["📝","How to file on MSME Samadhaan portal?"],
+  ["💼","What is advance tax and when must I pay?"],
+  ["🔍","Difference between Pvt Ltd and LLP?"],
+  ["🏭","Do I need FSSAI registration for my retail business?"],
+  ["📈","How to improve my compliance score to 750?"],
+  ["⏰","TDS due dates and applicable sections for FY 2024-25"],
+];
+
+// ─── INIT DYNAMIC ELEMENTS ───────────────────────────────────────────────────
+function initAriaUI() {
+  // Build topic list in full page left panel
+  const topicList = document.getElementById("ariaTopicList");
+  if (topicList) {
+    topicList.innerHTML = ARIA_TOPICS.map(([icon,title,sub,q]) => `
+      <div onclick="fullAriaAsk('${q.replace(/'/g,"&apos;")}')"
+        style="display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:5px;cursor:pointer;transition:background 0.15s;"
+        onmouseover="this.style.background='rgba(255,255,255,0.06)'" onmouseout="this.style.background='transparent'">
+        <span style="font-size:15px;flex-shrink:0;">${icon}</span>
+        <div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.7);font-weight:500;">${title}</div>
+          <div style="font-size:9px;color:rgba(255,255,255,0.25);font-family:'IBM Plex Mono',monospace;">${sub}</div>
+        </div>
+      </div>`).join("");
+  }
+
+  // Build law tags
+  const lawTags = document.getElementById("ariaLawTags");
+  if (lawTags) {
+    lawTags.innerHTML = ["GST Act","Companies Act 2013","IT Act 1961","MSMED Act","EPF Act","FEMA","LLP Act","Shops Act","POSH Act","Trademarks Act"]
+      .map(l => `<span style="font-size:9px;padding:2px 6px;background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.3);border-radius:3px;font-family:'IBM Plex Mono',monospace;">${l}</span>`)
+      .join("");
+  }
+
+  // Build common questions in right panel
+  const commonQs = document.getElementById("ariaCommonQs");
+  if (commonQs) {
+    commonQs.innerHTML = ARIA_COMMON_QS.map(([icon,q]) => `
+      <button onclick="fullAriaAsk('${q.replace(/'/g,"&apos;")}')"
+        style="width:100%;text-align:left;display:flex;align-items:flex-start;gap:7px;padding:7px 8px;background:transparent;border:none;border-bottom:1px solid rgba(255,255,255,0.04);cursor:pointer;color:rgba(255,255,255,0.5);font-size:11.5px;font-family:'IBM Plex Sans',sans-serif;line-height:1.4;transition:all 0.15s;"
+        onmouseover="this.style.background='rgba(41,121,255,0.08)';this.style.color='white'" onmouseout="this.style.background='transparent';this.style.color='rgba(255,255,255,0.5)'">
+        <span style="font-size:13px;flex-shrink:0;margin-top:1px;">${icon}</span>
+        <span>${q}</span>
+      </button>`).join("");
+  }
+}
+
+// ─── MARKDOWN RENDERER ────────────────────────────────────────────────────────
+function ariaMd(text) {
+  if (!text) return "";
+  return text
+    .replace(/\*\*(.*?)\*\*/g, '<strong style="color:rgba(255,255,255,0.95);font-weight:600">$1</strong>')
+    .replace(/\*(.*?)\*/g, '<em>$1</em>')
+    .replace(/`(.*?)`/g, '<code style="background:rgba(41,121,255,0.15);color:#90CAF9;padding:1px 5px;border-radius:3px;font-family:\'IBM Plex Mono\',monospace;font-size:0.88em;">$1</code>')
+    .replace(/^###\s+(.+)$/gm, '<div style="font-weight:700;font-size:0.85em;color:rgba(255,255,255,0.9);margin:12px 0 4px;text-transform:uppercase;letter-spacing:0.5px;border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:3px;">$1</div>')
+    .replace(/^##\s+(.+)$/gm, '<div style="font-weight:700;font-size:0.95em;color:white;margin:14px 0 5px;border-bottom:1px solid rgba(255,255,255,0.06);padding-bottom:4px;">$1</div>')
+    .replace(/^\d+\.\s+(.+)$/gm, '<div style="display:flex;gap:6px;margin:4px 0;"><span style="color:#90CAF9;font-weight:700;font-family:\'IBM Plex Mono\',monospace;min-width:14px;font-size:0.85em;">›</span><span>$1</span></div>')
+    .replace(/^[-•]\s+(.+)$/gm, '<div style="display:flex;gap:6px;margin:4px 0;"><span style="color:#90CAF9;min-width:10px;">·</span><span>$1</span></div>')
+    .replace(/\n\n/g, '<div style="height:8px"></div>')
+    .replace(/\n/g, '<br/>');
+}
+
+function msgBubble(msg, i) {
+  const isUser = msg.role === "user";
+  const isWelcome = i === 0 && !isUser;
+  return `<div style="display:flex;gap:8px;flex-direction:${isUser?'row-reverse':'row'};align-items:flex-start;">
+    <div style="width:28px;height:28px;border-radius:50%;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;font-size:13px;background:${isUser?'rgba(249,168,37,0.18)':'linear-gradient(135deg,#2979FF,#1A56CC)'};${isUser?'border:1px solid rgba(249,168,37,0.25)':''};">
+      ${isUser?'👤':'🧠'}
+    </div>
+    <div style="max-width:80%;padding:10px 14px;border-radius:${isUser?'12px 4px 12px 12px':'4px 12px 12px 12px'};background:${isUser?'linear-gradient(135deg,#2979FF,#1565C0)':isWelcome?'rgba(41,121,255,0.08)':'rgba(255,255,255,0.06)'};border:${isUser?'none':isWelcome?'1px solid rgba(41,121,255,0.18)':'1px solid rgba(255,255,255,0.08)'};">
+      <div style="font-size:12.5px;line-height:1.7;color:${isUser?'white':'rgba(255,255,255,0.85)'};">${ariaMd(msg.content)}</div>
+      <div style="font-size:9px;color:${isUser?'rgba(255,255,255,0.4)':'rgba(255,255,255,0.2)'};margin-top:5px;text-align:${isUser?'left':'right'};font-family:'IBM Plex Mono',monospace;">${isUser?'':' ARIA · '}${msg.time}</div>
+    </div>
+  </div>`;
+}
+
+function typingBubble() {
+  return `<div style="display:flex;gap:8px;align-items:flex-start;">
+    <div style="width:28px;height:28px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,#2979FF,#1A56CC);display:flex;align-items:center;justify-content:center;font-size:13px;">🧠</div>
+    <div style="padding:10px 14px;border-radius:4px 12px 12px 12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);">
+      <div style="display:flex;gap:4px;align-items:center;">
+        <span style="width:6px;height:6px;background:#2979FF;border-radius:50%;display:inline-block;animation:aria-bounce 1.2s ease-in-out 0s infinite;"></span>
+        <span style="width:6px;height:6px;background:#2979FF;border-radius:50%;display:inline-block;animation:aria-bounce 1.2s ease-in-out 0.2s infinite;"></span>
+        <span style="width:6px;height:6px;background:#2979FF;border-radius:50%;display:inline-block;animation:aria-bounce 1.2s ease-in-out 0.4s infinite;"></span>
+        <span style="font-size:10px;color:rgba(255,255,255,0.25);margin-left:6px;font-family:'IBM Plex Mono',monospace;">Analysing regulations...</span>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ─── FLOATING CHATBOT ─────────────────────────────────────────────────────────
+function initARIA() {
+  const welcomeMsg = `**Namaste! I'm ARIA** 🇮🇳
+
+I'm your AI Regulatory Intelligence Assistant — trained on Indian business law, GST, income tax, MCA/ROC, MSME schemes, labour law, and all compliance regulations.
+
+**I know your business:** Krishnamurthy Retail Pvt. Ltd. · Maharashtra · Compliance Score **648/900**
+
+Type your question below — I'm ready.`;
+  ariaMessages = [{ role: "assistant", content: welcomeMsg, time: now() }];
+  ariaFirstMessage = true;
+  renderFloatingMessages();
+  updateFloatingSuggestions();
+}
+
+function renderFloatingMessages() {
+  const c = document.getElementById("ariaMessages");
+  if (!c) return;
+  c.innerHTML = ariaMessages.map((m,i) => msgBubble(m,i)).join("") + (ariaLoading ? typingBubble() : "");
+  setTimeout(() => { c.scrollTop = c.scrollHeight; }, 50);
+}
+
+function updateFloatingSuggestions() {
+  const sugg = document.getElementById("ariaSuggestions");
+  const b1 = document.getElementById("ariaSugg1");
+  const b2 = document.getElementById("ariaSugg2");
+  if (!sugg || !b1 || !b2) return;
+  const [s1, s2] = ARIA_CONTEXT_SUGGESTIONS[currentPageKey] || ARIA_CONTEXT_SUGGESTIONS.default;
+  b1.textContent = s1;
+  b2.textContent = s2;
+  // Show suggestions only when there's just the welcome message (user hasn't asked yet)
+  sugg.style.display = ariaFirstMessage ? "flex" : "none";
+}
+
+function ariaSuggClick(idx) {
+  const [s1, s2] = ARIA_CONTEXT_SUGGESTIONS[currentPageKey] || ARIA_CONTEXT_SUGGESTIONS.default;
+  ariaSendMsg(idx === 0 ? s1 : s2);
+}
+
+function toggleARIA() {
+  ariaOpen = !ariaOpen;
+  const box = document.getElementById("ariaBox");
+  const icon = document.getElementById("ariaIcon");
+  const notif = document.getElementById("ariaNotif");
+  if (ariaOpen) {
+    box.style.display = "flex";
+    requestAnimationFrame(() => box.classList.add("open"));
+    icon.innerHTML = '<span style="font-size:18px;color:white;">✕</span>';
+    notif.style.display = "none";
+    if (ariaMessages.length === 0) initARIA();
+    else updateFloatingSuggestions();
+    setTimeout(() => document.getElementById("ariaInput")?.focus(), 300);
+  } else {
+    box.classList.remove("open");
+    icon.innerHTML = '<svg width="32" height="32" viewBox="0 0 64 64" fill="none"><circle cx="32" cy="20" r="13" fill="#FFDAB9"/><ellipse cx="32" cy="9" rx="13" ry="7" fill="#2C1810"/><rect x="19" y="9" width="4" height="10" rx="2" fill="#2C1810"/><rect x="41" y="9" width="4" height="10" rx="2" fill="#2C1810"/><circle cx="27" cy="20" r="1.5" fill="#333"/><circle cx="37" cy="20" r="1.5" fill="#333"/><path d="M28 26 Q32 29 36 26" stroke="#E88" stroke-width="1.5" stroke-linecap="round" fill="none"/><rect x="20" y="33" width="24" height="22" rx="3" fill="#1A2744"/><rect x="28" y="33" width="8" height="22" rx="1" fill="white"/><polygon points="32,35 30,42 32,43 34,42" fill="#C62828"/><polygon points="28,33 32,39 24,33" fill="white"/><polygon points="36,33 32,39 40,33" fill="white"/><rect x="22" y="6" width="20" height="3" rx="1" fill="#1A1A1A"/><polygon points="32,1 42,7 22,7" fill="#1A1A1A"/><line x1="40" y1="7" x2="43" y2="12" stroke="#C62828" stroke-width="1.5"/><circle cx="43" cy="13" r="1.5" fill="#C62828"/></svg>';
+    setTimeout(() => { box.style.display = "none"; }, 220);
+  }
+}
+
+function openFullARIA() {
+  toggleARIA();
+  showPage("aria");
+}
+
+async function ariaSendMsg(text) {
+  const input = document.getElementById("ariaInput");
+  const msgText = text || input?.value?.trim();
+  if (!msgText || ariaLoading) return;
+  if (input) { input.value = ""; input.style.height = "auto"; }
+  updateSendBtn();
+  ariaFirstMessage = false;
+  document.getElementById("ariaSuggestions").style.display = "none";
+  ariaMessages.push({ role: "user", content: msgText, time: now() });
+  renderFloatingMessages();
+  ariaLoading = true;
+  setAriaStatus(true);
+  await new Promise(r => setTimeout(r, 900 + Math.random()*600));
+  const reply = getARIAResponse(msgText);
+  ariaMessages.push({ role: "assistant", content: reply, time: now() });
+  ariaLoading = false;
+  setAriaStatus(false);
+  renderFloatingMessages();
+}
+
+function clearARIA() {
+  ariaMessages = [];
+  initARIA();
+}
+
+function setAriaStatus(thinking) {
+  const el = document.getElementById("ariaStatus");
+  if (el) { el.textContent = thinking ? "Analysing regulations..." : "AI Regulatory Intelligence · Online"; el.style.color = thinking ? "#90CAF9" : "rgba(255,255,255,0.4)"; }
+  renderFloatingMessages();
+}
+
+// ─── FULL PAGE ARIA ───────────────────────────────────────────────────────────
+function renderFullMessages() {
+  const c = document.getElementById("fullAriaMessages");
+  if (!c) return;
+  c.innerHTML = fullAriaMessages.map((m,i) => msgBubble(m,i)).join("") + (fullAriaLoading ? typingBubble() : "");
+  setTimeout(() => { c.scrollTop = c.scrollHeight; }, 50);
+}
+
+function updateFullSugg() {
+  const sugg = document.getElementById("fullAriaSugg");
+  if (!sugg) return;
+  // Show 2 suggestions only before first user message
+  if (!fullAriaFirstMessage) { sugg.innerHTML = ""; return; }
+  const [s1, s2] = ARIA_CONTEXT_SUGGESTIONS[currentPageKey] || ARIA_CONTEXT_SUGGESTIONS.default;
+  sugg.innerHTML = [s1, s2].map(s => `
+    <button onclick="fullAriaAsk('${s.replace(/'/g,"&apos;")}')"
+      style="padding:5px 12px;border-radius:5px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);font-size:11px;color:rgba(255,255,255,0.6);cursor:pointer;font-family:'IBM Plex Sans',sans-serif;transition:all 0.15s;"
+      onmouseover="this.style.background='rgba(41,121,255,0.1)';this.style.borderColor='rgba(41,121,255,0.3)';this.style.color='white'"
+      onmouseout="this.style.background='rgba(255,255,255,0.05)';this.style.borderColor='rgba(255,255,255,0.1)';this.style.color='rgba(255,255,255,0.6)'">${s}</button>`).join("");
+}
+
+function initFullAria() {
+  if (fullAriaMessages.length > 0) return;
+  const welcome = `**Namaste! I'm ARIA** — AI Regulatory Intelligence Assistant 🇮🇳
+
+I'm trained on all Indian business compliance: **GST**, **Income Tax**, **MCA/ROC**, **MSME Government Schemes**, **Labour Law**, **FEMA**, **Trademark**, and every regulation your business needs.
+
+**Your business:** Krishnamurthy Retail Pvt. Ltd. · Maharashtra · Retail · ₹1.02Cr turnover · Score: **648/900**
+
+**2 active issues need attention:**
+- ⚠️ IT Scrutiny Notice u/s 143(2) — AY 2023-24 (overdue)
+- ⚠️ GST Mismatch GSTR-2A vs 3B — Nov 2024
+
+Ask me anything. I'll give you precise, actionable answers with section numbers and due dates.`;
+  fullAriaMessages = [{ role: "assistant", content: welcome, time: now() }];
+  fullAriaFirstMessage = true;
+  renderFullMessages();
+  updateFullSugg();
+}
+
+async function fullAriaSend(text) {
+  const input = document.getElementById("fullAriaInput");
+  const msgText = text || input?.value?.trim();
+  if (!msgText || fullAriaLoading) return;
+  if (input) { input.value = ""; input.style.height = "auto"; }
+  updateFullSendBtn();
+  fullAriaFirstMessage = false;
+  updateFullSugg();
+  fullAriaMessages.push({ role: "user", content: msgText, time: now() });
+  renderFullMessages();
+  fullAriaLoading = true;
+  const badge = document.getElementById("fullAriaStatusBadge");
+  if (badge) badge.textContent = "● Analysing...";
+  await new Promise(r => setTimeout(r, 900 + Math.random()*600));
+  const reply = getARIAResponse(msgText);
+  fullAriaMessages.push({ role: "assistant", content: reply, time: now() });
+  fullAriaLoading = false;
+  if (badge) badge.textContent = "● Online · FY 2024-25";
+  renderFullMessages();
+}
+
+function fullAriaAsk(q) {
+  // If full page is active, send directly; otherwise open it first
+  const fullPage = document.getElementById("page-aria");
+  if (fullPage && fullPage.classList.contains("active")) {
+    fullAriaSend(q);
+  } else {
+    showPage("aria");
+    setTimeout(() => fullAriaSend(q), 200);
+  }
+}
+
+function fullAriaClear() {
+  fullAriaMessages = [];
+  fullAriaFirstMessage = true;
+  initFullAria();
+}
+
+// ─── INPUT HELPERS ────────────────────────────────────────────────────────────
+function handleAriaKey(e) {
+  if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); ariaSendMsg(); }
+  updateSendBtn();
+}
+
+function handleFullAriaKey(e) {
+  if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); fullAriaSend(); }
+  updateFullSendBtn();
+}
+
+function updateSendBtn() {
+  const input = document.getElementById("ariaInput");
+  const btn = document.getElementById("ariaSendBtn");
+  if (btn && input) { btn.disabled = !input.value.trim() || ariaLoading; btn.style.background = (!input.value.trim()||ariaLoading) ? "rgba(255,255,255,0.08)" : "#2979FF"; btn.style.color = (!input.value.trim()||ariaLoading) ? "rgba(255,255,255,0.3)" : "white"; btn.style.cursor = (!input.value.trim()||ariaLoading) ? "default" : "pointer"; }
+}
+
+function updateFullSendBtn() {
+  const input = document.getElementById("fullAriaInput");
+  const btn = document.getElementById("fullAriaSendBtn");
+  if (btn && input) { const ok = input.value.trim() && !fullAriaLoading; btn.disabled = !ok; btn.style.background = ok ? "#2979FF" : "rgba(255,255,255,0.08)"; btn.style.color = ok ? "white" : "rgba(255,255,255,0.3)"; btn.style.cursor = ok ? "pointer" : "default"; }
+}
+
+function now() {
+  return new Date().toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" });
+}
+
+// ─── BUILT-IN INDIAN BUSINESS LAW KNOWLEDGE BASE ─────────────────────────────
+function getARIAResponse(q) {
+  const ql = q.toLowerCase();
+
+  // ── GST ──
+  if (/gst|gstr|igst|sgst|cgst|itc|input tax|e.invoice|eway|e.way|gstin/.test(ql)) {
+    if (/gstr.3b|3b/.test(ql) && /due|date|deadline|when|pay/.test(ql)) {
+      return `## GSTR-3B Due Dates — FY 2024-25
+
+**GSTR-3B** is your monthly GST summary return. Due dates:
+
+- **Regular taxpayers** (turnover > ₹5 Cr): **20th of following month**
+- **Turnover ≤ ₹5 Cr (Category A states)**: 22nd of following month
+- **Turnover ≤ ₹5 Cr (Category B states)**: 24th of following month
+
+**Your business (Krishnamurthy Retail, Maharashtra):** 22nd of each month
+
+**Penalty for late filing:**
+- NIL returns: **₹20/day** (CGST ₹10 + SGST ₹10), max ₹500
+- Non-NIL returns: **₹50/day** (CGST ₹25 + SGST ₹25), max ₹10,000
+- **Interest: 18% p.a.** on tax payable (u/s 50 CGST Act)
+
+**Where to file:** [gst.gov.in](https://gst.gov.in) → Services → Returns → GSTR-3B
+
+⚠️ Your February 2025 GSTR-3B is **due 22 Feb 2025** — only **3 days away**.`;
+    }
+    if (/gstr.1|gstr 1|outward/.test(ql)) {
+      return `## GSTR-1 — Outward Supply Return
+
+**GSTR-1** reports all outward (sales) invoices.
+
+**Due Dates:**
+- Turnover > ₹5 Cr: **11th of following month**
+- Turnover ≤ ₹5 Cr (Quarterly, QRMP): **13th of month after quarter end**
+
+**Your business:** Quarterly filer under QRMP scheme (turnover ~₹1.02 Cr)
+
+**Key fields:** B2B invoices, B2C summary, credit notes, debit notes, HSN summary
+
+**Penalty:** ₹200/day late fee (₹100 CGST + ₹100 SGST), max ₹10,000
+
+**GSTR-1A:** New amendment window — you can amend GSTR-1 data until the 14th of following month (effective Feb 2025 per CBIC circular).
+
+File at: **gst.gov.in → Returns → GSTR-1**`;
+    }
+    if (/mismatch|2a|2b|reconcil/.test(ql)) {
+      return `## GSTR-2A vs GSTR-3B Mismatch — Resolution Guide
+
+**Your active issue:** GST Mismatch Nov 2024 (GSTR-2A vs 3B)
+
+**Why it happens:** Suppliers file GSTR-1 late or incorrectly, so ITC shown in your 2A differs from what you claimed in 3B.
+
+## Step-by-Step Resolution:
+
+**Step 1:** Download GSTR-2A and GSTR-3B from GST portal for the disputed month
+
+**Step 2:** Reconcile invoice-by-invoice using GSTIN + invoice number
+
+**Step 3:** For missing invoices — contact supplier to file/amend their GSTR-1
+
+**Step 4:** If supplier won't correct — reverse ITC u/s **Section 16(4) CGST Act** and pay with interest 18% p.a.
+
+**Step 5:** File a detailed response on the GST portal (Notices section) within **30 days** of notice
+
+**Legal provision:** Section 16(2)(c) — ITC allowed only if supplier has paid tax to government.
+
+**Rule 37A:** If GSTR-3B not filed by supplier, ITC must be reversed.
+
+⚠️ Do not ignore — unresolved mismatches attract **penalty u/s 122: ₹10,000 or tax amount, whichever is higher**.
+
+**Recommended:** Engage CA to draft written response with reconciliation statement.`;
+    }
+    if (/itc|input tax credit/.test(ql)) {
+      return `## Input Tax Credit (ITC) Rules — GST
+
+**ITC** allows you to offset tax paid on purchases against GST collected on sales.
+
+## Eligibility (Section 16 CGST Act):
+- Registered taxpayer with valid GSTIN ✓
+- Tax invoice from registered supplier ✓
+- Goods/services received ✓
+- Supplier has filed GSTR-1 and paid tax ✓
+- ITC claimed within **3 years** of invoice date
+
+## Blocked Credits (Section 17(5)):
+- Motor vehicles (exceptions apply)
+- Food & beverages
+- Personal use items
+- Construction materials (for immovable property)
+- Club/gym memberships
+
+## ITC Claim Process:
+1. ITC auto-populates in **GSTR-2B** (monthly, by 14th)
+2. Verify with purchases register
+3. Claim in **GSTR-3B Table 4**
+
+**Rule 86B:** If >99% ITC utilized, department may restrict cash credit utilization.
+
+**Annual reconciliation:** GSTR-9 (annual return) must reconcile ITC claimed vs 2A/2B.`;
+    }
+    if (/e.invoice|einvoice/.test(ql)) {
+      return `## E-Invoicing — Applicability & Process
+
+**New threshold from 1 April 2025:** Mandatory for businesses with aggregate turnover > **₹5 Crore**
+
+**Your business (₹1.02 Cr turnover):** Currently exempt, but watch for further threshold reduction.
+
+## How E-Invoicing Works:
+1. Generate invoice in your accounting software (Tally/Busy/Zoho)
+2. Upload to **Invoice Registration Portal (IRP)** — einvoice1.gst.gov.in
+3. IRP validates and returns **IRN (Invoice Reference Number)** + QR code
+4. Share QR-coded invoice to buyer
+
+**Portals:** einvoice1.gst.gov.in (NIC) or private IRP portals
+
+**Penalty for non-compliance:** Invoice treated as invalid → ITC denied to buyer → **₹10,000 per invoice** penalty
+
+**Applicable to:** B2B supplies only (not B2C, exports need separate process)`;
+    }
+    if (/annual return|gstr.9|gstr 9/.test(ql)) {
+      return `## GSTR-9 — Annual Return
+
+**GSTR-9** consolidates all monthly/quarterly GST returns for the financial year.
+
+**Due Date:** **31 December** of the following financial year (e.g., GSTR-9 for FY 2023-24 due 31 Dec 2024)
+
+**Who must file:**
+- All regular taxpayers with turnover > ₹2 Crore: GSTR-9 mandatory
+- Turnover ≤ ₹2 Crore: Filing optional (but recommended)
+- **GSTR-9C (reconciliation statement):** Turnover > ₹5 Crore, certified by CA
+
+**Penalty:** ₹200/day (₹100 CGST + ₹100 SGST), max 0.25% of turnover
+
+**Your business:** Optional filing (₹1.02 Cr turnover), but filing recommended to avoid future scrutiny.`;
+    }
+    if (/where|portal|how to pay|pay gst/.test(ql)) {
+      return `## Where & How to Pay GST
+
+**GST Payment Portal:** [gst.gov.in](https://gst.gov.in)
+
+## Steps to Pay GST:
+1. Login to **gst.gov.in** with GSTIN + password
+2. Go to **Services → Payments → Create Challan (PMT-06)**
+3. Enter amounts under CGST, SGST, IGST heads
+4. Choose payment mode:
+   - **Internet Banking** (NEFT/RTGS)
+   - **Debit Card / Credit Card**
+   - **Over-the-counter** (at authorized banks — up to ₹10,000)
+
+## Payment Ledgers:
+- **Electronic Cash Ledger:** For tax, interest, fees, penalty
+- **Electronic Credit Ledger:** ITC balance (only for tax, not fees)
+
+## Due Dates:
+- GST liability must be paid **by GSTR-3B due date** (20th/22nd/24th)
+- Advance payment under QRMP: **25th of each month** in first 2 months of quarter
+
+**Interest for late payment:** 18% p.a. from due date to payment date (u/s 50 CGST Act)`;
+    }
+    return `## GST Compliance — Complete Overview
+
+**Your GST Registration:** GSTIN 27AAFCK5570M1ZH (Maharashtra, Regular Scheme)
+
+## Monthly Obligations:
+- **GSTR-1** (sales): 11th/13th of following month
+- **GSTR-3B** (summary + payment): 20th/22nd/24th of following month
+- **ITC-04** (job work): Quarterly — 25th of month after quarter
+
+## Annual Obligations:
+- **GSTR-9** (annual return): 31 December
+- **GSTR-9C** (reconciliation): 31 December (if turnover > ₹5 Cr)
+
+## Your Active GST Issue:
+⚠️ **GSTR-2A vs 3B Mismatch (Nov 2024)** — Respond within 30 days with reconciliation statement
+
+## Key GST Rates (Retail):
+- **0%:** Fresh vegetables, milk, eggs, books
+- **5%:** Packaged food, tea, coffee, edible oils
+- **12%:** Butter, cheese, processed food
+- **18%:** Cosmetics, electronics, clothing > ₹1,000
+- **28%:** Luxury goods, automobiles, tobacco
+
+Ask me about specific GST topics: returns, ITC, e-invoicing, penalties, or your mismatch notice.`;
+  }
+
+  // ── INCOME TAX ──
+  if (/income tax|itr|tds|tcs|advance tax|scrutiny|143|148|234|section 44|presumptive/.test(ql)) {
+    if (/scrutiny|143\(2\)|notice/.test(ql) && /respond|reply|how|what/.test(ql)) {
+      return `## Responding to IT Scrutiny Notice u/s 143(2)
+
+**Your active notice:** IT Scrutiny Notice u/s 143(2) — AY 2023-24 ⚠️ OVERDUE
+
+## What is Section 143(2)?
+A formal notice from the Income Tax Department asking you to appear/submit documents for **detailed scrutiny** of your ITR.
+
+## Immediate Steps (Do Today):
+
+**Step 1:** Login to **incometax.gov.in** → e-Proceedings → Pending Actions → Respond to notice
+
+**Step 2:** Check **deadline** on the notice — Section 143(2) notices expire if not responded within **2 years** from end of assessment year
+
+**Step 3:** Gather documents:
+- ITR and computation for AY 2023-24
+- Audited financial statements + Balance Sheet + P&L
+- Bank statements (all accounts)
+- GST returns for FY 2022-23
+- Purchase/sale invoices
+- TDS certificates (Form 16A)
+
+**Step 4:** File response online with supporting documents on the IT portal
+
+**Step 5:** If issues are complex — **Engage a Chartered Accountant immediately**
+
+## Consequences of Non-Response:
+- Best Judgment Assessment u/s **144** (officer makes arbitrary assessment)
+- Penalty u/s **271** — 50-200% of concealed income
+- Prosecution in extreme cases
+
+⚠️ This notice is OVERDUE — act today. Your score is impacted by -45 points due to this.`;
+    }
+    if (/tds|tax deduct/.test(ql)) {
+      return `## TDS (Tax Deducted at Source) — Complete Guide
+
+**Your TDS obligation:** 14 employees, monthly payroll ~₹1.8 Lakh
+
+## Key TDS Sections:
+| Section | Payment Type | Rate |
+|---------|-------------|------|
+| **192** | Salary | As per slab |
+| **194C** | Contractor payment | 1% (individual), 2% (company) |
+| **194J** | Professional services | 10% |
+| **194I** | Rent | 10% (land/building), 2% (machinery) |
+| **194H** | Commission/brokerage | 5% |
+
+## TDS Calendar FY 2024-25:
+- **Deposit:** 7th of following month (except March — 30 April)
+- **Quarterly returns:** 
+  - Q1 (Apr-Jun): 31 July
+  - Q2 (Jul-Sep): 31 October
+  - Q3 (Oct-Dec): **31 January** ← current
+  - Q4 (Jan-Mar): 31 May
+
+## Your TDS Return (24Q — Salary):
+- **Q3 return due: 31 January 2025** (Q3 FY25)
+- File on **TRACES/TIN-NSDL** portal
+
+**Penalty for late filing:** ₹200/day u/s 234E (min ₹200, max TDS amount)
+**Penalty for non-deduction:** 100% of TDS amount u/s 271C`;
+    }
+    if (/advance tax|234c/.test(ql)) {
+      return `## Advance Tax — FY 2024-25
+
+**Who must pay:** If total tax liability > ₹10,000 in a year (after TDS credit)
+
+## Advance Tax Schedule (Companies & Individuals):
+| Due Date | Cumulative % to Pay |
+|----------|-------------------|
+| 15 June | 15% of estimated tax |
+| 15 September | 45% |
+| 15 December | 75% |
+| **15 March** | **100%** |
+
+## For Your Business (Pvt Ltd):
+- Applicable under **Section 115JB (MAT)** if MAT applies
+- Pay via challan at **incometax.gov.in → e-Pay Tax**
+
+## Interest for Short Payment (Section 234C):
+- **1% per month** on shortfall at each due date
+- Calculated separately for each installment
+
+## Recommendation for You:
+Your AI projection shows GST/income likely rising in Q4 FY25. Ensure you have paid at least **75% of tax liability by 15 December 2024** and 100% by 15 March 2025 to avoid Section 234C interest.
+
+**Calculator:** Use IT portal's advance tax calculator for exact amounts.`;
+    }
+    if (/where|how to file|portal|income tax return|itr file/.test(ql)) {
+      return `## How to File Income Tax Return — Pvt Ltd Company
+
+**Portal:** [incometax.gov.in](https://incometax.gov.in)
+
+## ITR Form for Your Business:
+**Krishnamurthy Retail Pvt. Ltd.** must file **ITR-6** (for companies other than Section 11 companies)
+
+## Filing Steps:
+1. Login with PAN → **e-File → Income Tax Returns → File ITR**
+2. Select AY 2024-25 and ITR-6
+3. Fill in financial data (revenue, expenses, depreciation)
+4. Include MAT computation if applicable
+5. Attach audit report (Form 3CA-3CD if turnover > ₹1 Cr)
+6. Pay tax via **e-Pay Tax** (Challan 280)
+7. Submit and e-verify
+
+## Important Due Dates:
+- **Company ITR:** 31 October (with audit)
+- **Tax Audit Report (Form 3CA-3CD):** 30 September
+- **MAT Credit Return (Form 29B):** 30 November
+
+## Your Tax Audit:
+Turnover ₹1.02 Cr — **mandatory tax audit u/s 44AB** (turnover > ₹1 Crore for business)
+
+Get your CA to file audit report before 30 September, then file ITR by 31 October.`;
+    }
+    return `## Income Tax — Complete Compliance Guide
+
+**Your company:** Krishnamurthy Retail Pvt. Ltd. (AY 2024-25)
+
+## Annual Filing:
+- **ITR-6** due: 31 October 2025
+- **Tax Audit (44AB):** Required (turnover >₹1 Cr) — Audit by 30 Sep, ITR by 31 Oct
+- **Form 3CA-3CD:** Auditor's report with 44-point verification
+
+## TDS Obligations (Monthly):
+- Salaries u/s 192 → Deposit by 7th of next month
+- Form 24Q quarterly returns
+- Issue Form 16 to employees by 15 June each year
+
+## Active Issue:
+⚠️ **IT Scrutiny Notice u/s 143(2) — AY 2023-24 is OVERDUE**
+Login to incometax.gov.in → e-Proceedings → Respond immediately
+
+## Useful Sections:
+- **Section 44AB:** Mandatory audit (turnover > ₹1 Cr)
+- **Section 115JB:** MAT — 15% on book profit (if higher than normal tax)
+- **Section 80JJAA:** 30% deduction on new employee salaries (up to 3 years)
+
+Ask me about TDS, advance tax, scrutiny notice response, or ITR filing.`;
+  }
+
+  // ── MCA / ROC ──
+  if (/mca|roc|mgt.7|aoc.4|dir.3|annual return|company filing|din|cin|pvt ltd|private limited/.test(ql)) {
+    if (/mgt.7|annual return|roc/.test(ql)) {
+      return `## MGT-7 / MGT-7A — Annual Return (ROC Filing)
+
+**MGT-7A** is for small companies (turnover < ₹2 Cr, paid-up capital < ₹2 Cr) — introduced from FY 2021-22.
+
+**Your company (₹1.02 Cr turnover):** File **MGT-7A** (simplified annual return)
+
+## Filing Details:
+| Form | Due Date | Purpose |
+|------|----------|---------|
+| **MGT-7A** | 60 days from AGM | Annual return for small companies |
+| **AOC-4** | 30 days from AGM | Financial statements |
+| **ADT-1** | 15 days from AGM | Auditor appointment |
+
+**AGM (Annual General Meeting):** Must be held by **30 September** each year
+
+**So effectively:**
+- AOC-4 due: **29 October** (30 days after 30 Sep AGM)
+- MGT-7A due: **29 November** (60 days after AGM)
+
+## Revised format from Q1 FY26 (1 April 2025):
+MCA has notified **new MGT-7A format** — prepare your company master data accordingly.
+
+## Penalty for late filing:
+- ₹100 per day (no maximum cap) — running penalty
+- Additional fees: ₹200 (1-30 days), ₹300 (31-60 days), ₹400 (61-90 days), ₹600 (91-180 days), ₹1,000 per day beyond 180 days
+
+File at: **[mca.gov.in](https://mca.gov.in)** → MCA Services → Company Forms`;
+    }
+    if (/aoc.4|financial statement/.test(ql)) {
+      return `## AOC-4 — Filing Financial Statements with ROC
+
+**AOC-4** submits your audited financial statements (Balance Sheet, P&L, Notes to Accounts) with the MCA.
+
+## Due Date:
+- **30 days from AGM date** (AGM latest by 30 September)
+- Effective deadline: **30 October** each year
+
+## Documents required:
+- Board-approved Balance Sheet + P&L
+- Auditor's report (standalone)
+- Directors' report
+- Form CSR-2 (if applicable — turnover > ₹500 Cr / net profit > ₹5 Cr)
+
+## Late fee:
+₹100 per day with no cap (escalates rapidly — file promptly)
+
+## Your Next Filing:
+AOC-4 for FY 2024-25 due: **30 October 2025**
+
+File at: **mca.gov.in** → MCA21 v3.0 portal (new schema effective March 2025)`;
+    }
+    if (/dir.3|kyc|director/.test(ql)) {
+      return `## DIR-3 KYC — Director KYC Annual Filing
+
+**Every Director** with an allotted DIN must file DIR-3 KYC annually.
+
+## Types:
+| Form | When | Fee |
+|------|------|-----|
+| **DIR-3 KYC** | First time or if details change | ₹500 |
+| **DIR-3 KYC-Web** | Annual renewal (no change) | No fee (within deadline), ₹5,000 (late) |
+
+## Due Date: **30 September** every year
+
+## Late Fee:
+₹5,000 per DIN if filed after 30 September → DIN gets **deactivated**
+
+## Steps:
+1. mca.gov.in → MCA Services → e-Filing → DIR-3 KYC
+2. Attach: Mobile OTP + Email OTP + PAN + Aadhaar
+3. Sign with DSC or Aadhaar e-sign
+
+⚠️ If DIN is deactivated, director cannot sign any MCA forms until KYC is regularized.`;
+    }
+    return `## MCA / ROC Annual Compliance — Private Limited Company
+
+**Your CIN:** U52100MH2018PTC12345
+
+## Annual Compliance Calendar:
+| Filing | Due Date | Form |
+|--------|----------|------|
+| Auditor Appointment | 15 days from AGM | ADT-1 |
+| Financial Statements | 30 days from AGM | AOC-4 |
+| Annual Return | 60 days from AGM | MGT-7A |
+| Director KYC | 30 September | DIR-3 KYC |
+| INC-20A (if new) | 180 days from incorporation | Commencement |
+
+**AGM must be held by 30 September → effectively all filings by Oct-Nov**
+
+## Costs of Non-Compliance:
+- ₹100/day running penalty on all overdue forms
+- Company may be struck off after 2 years of non-filing
+- Directors disqualified u/s 164(2) if not filed for 3 continuous years
+
+## Board Meetings:
+Minimum **4 board meetings per year**, max gap 120 days between meetings (Section 173, Companies Act 2013)
+
+File all forms at: **mca.gov.in**`;
+  }
+
+  // ── MSME / GOVERNMENT SCHEMES ──
+  if (/msme|scheme|cgtmse|mudra|pmegp|samadhaan|udyam|subsidy|loan|government/.test(ql)) {
+    if (/cgtmse/.test(ql)) {
+      return `## CGTMSE — Credit Guarantee Fund Trust for Micro & Small Enterprises
+
+**For your business:** ✅ Eligible (MSME Udyam registered, turnover < ₹50 Cr)
+
+## What You Get:
+- **Collateral-free working capital loans** up to **₹5 Crore**
+- Guarantee cover: 75-85% of loan amount (bank takes lower risk → easier approval)
+- No property pledge required
+
+## How to Apply:
+1. **Approach your bank** (HDFC/ICICI/SBI) — they are CGTMSE member institutions
+2. Ask for loan under CGTMSE scheme
+3. Bank applies to CGTMSE for guarantee cover
+4. You pay **Annual Guarantee Fee (AGF):** 0.37-1.35% of loan amount (varies by loan size)
+
+## Eligible Loans:
+- Working capital (CC/OD limit)
+- Term loans for machinery/equipment
+- Up to ₹5 Crore (enhanced limit from ₹2 Cr in 2023)
+
+## Your Priority Action:
+Apply for **₹25 Lakh working capital CC limit** — your current turnover and MSME status make you an ideal candidate.
+
+**Contact:** Your relationship manager at HDFC or ICICI with Udyam certificate (MH-19-0034521).`;
+    }
+    if (/samadhaan|delayed payment|overdue/.test(ql)) {
+      return `## MSME Samadhaan — Delayed Payment Recovery Portal
+
+**Your situation:** ₹1.8 Lakh overdue from Reliance Retail (>90 days)
+
+## Your Legal Right (MSMED Act 2006, Sections 15-24):
+- Buyers must pay MSMEs within **45 days** (if agreement) or **15 days** (if no agreement)
+- On delay: Compound interest at **3× RBI MCLR rate** (currently ~11%)
+- This is a statutory right — no need to prove anything
+
+## How to File on Samadhaan Portal:
+1. Visit: **[samadhaan.msme.gov.in](https://samadhaan.msme.gov.in)**
+2. Register with your Udyam number (MH-19-0034521)
+3. File application with: invoice copies, delivery proofs, payment demand letters
+4. Facilitation Council (MSEFC) contacts buyer within 15 days
+5. Conciliation attempted → if failed → arbitration order
+
+## What Happens to Buyer (Reliance Retail):
+- Buyer must pay dues + compound interest
+- Disallowed as business expense if unpaid (Section 23 MSMED Act — forces payment)
+- Public listed companies must disclose MSME dues in financial statements
+
+**File today** — it's free, quick, and your statutory right. ₹1.8L + ~₹20K interest recoverable.`;
+    }
+    if (/pmegp|subsidy/.test(ql)) {
+      return `## PMEGP — Prime Minister's Employment Generation Programme
+
+**Nodal agency:** KVIC, DICs, KVIB
+
+## Subsidy Amount:
+| Category | Urban | Rural |
+|----------|-------|-------|
+| General | 15% | 25% |
+| SC/ST/OBC/Women/Ex-servicemen | 25% | 35% |
+
+## Project Cost Limits:
+- Manufacturing: Up to **₹50 Lakh** (subsidy 25-35%)
+- Service/Trade: Up to **₹20 Lakh** (subsidy 15-25%)
+
+## Eligibility:
+- Age 18+ with 8th standard pass (for projects > ₹10L)
+- New business only (no existing enterprise)
+- No prior government subsidy taken
+
+## Application Process:
+1. Apply at: **kviconline.gov.in/pmegp**
+2. Submit project report + financial projections
+3. DIC recommends → Bank sanctions → Subsidy released
+
+**Note:** PMEGP is for new businesses. Since you have an existing business, consider **CGTMSE** or **CLCSS** (Capital Linked Subsidy Scheme for technology upgradation) instead.`;
+    }
+    if (/udyam|msme register|registration/.test(ql)) {
+      return `## Udyam Registration — Benefits & Process
+
+**Your Udyam:** MH-19-0034521 (Small Enterprise · Retail Trade) ✅ Registered
+
+## Benefits of Udyam Registration:
+- Priority sector lending at lower interest rates
+- Access to CGTMSE collateral-free loans
+- Government tender reservations (MSE preference)
+- MSME Samadhaan for delayed payment recovery
+- **ZED Certification** (Quality certification with subsidy)
+- State-specific subsidies (Maharashtra MSME Policy 2019)
+- 1% lower interest on ECLGS loans
+- NSIC credit support
+- GeM portal seller registration
+
+## Maharashtra MSME Policy 2019 Benefits:
+- **15-20% stamp duty waiver** on new equipment purchase
+- **Electricity duty exemption** for 5 years
+- **Sales tax/VAT deferment** on machinery
+- Contact: **MIDC / DIC (District Industries Centre)**
+
+## If Registration Expired/Needs Update:
+Visit **udyamregistration.gov.in** and update turnover for current FY — no fee required.`;
+    }
+    if (/mudra/.test(ql)) {
+      return `## MUDRA Loans — Micro Units Development & Refinance Agency
+
+## Three Tiers:
+| Scheme | Loan Amount | For |
+|--------|-------------|-----|
+| **Shishu** | Up to ₹50,000 | Starting stage |
+| **Kishore** | ₹50,001 – ₹5 Lakh | Established/expanding |
+| **Tarun** | ₹5,01,000 – ₹10 Lakh | Further expansion |
+
+**Tarun Plus (2024):** Up to ₹20 Lakh for existing Tarun borrowers
+
+## Eligibility:
+- Non-farm income generating activities
+- Existing or new micro/small business
+- No collateral required (under CGTMSE guarantee)
+
+## Interest Rates:
+- 9-12% p.a. (varies by bank and tier)
+- Subsidized under PMMY (PM Mudra Yojana)
+
+## Apply At:
+Any PSU bank, private bank, MFI, NBFC, Small Finance Bank
+**Online:** psbloansin59minutes.com or udyamregistration.gov.in portal
+
+**For your business:** You're eligible for Tarun Plus (₹10-20L) given existing MSME registration.`;
+    }
+    return `## Government Schemes — Your Matched Opportunities
+
+**Your profile:** Krishnamurthy Retail Pvt. Ltd. · Maharashtra · ₹1.02 Cr turnover · MSME Udyam MH-19-0034521
+
+## Top Priority Schemes for You:
+
+### 1. CGTMSE (Immediate Action)
+- **₹25L collateral-free working capital loan**
+- Apply via your banker (no portal needed)
+- Time: 2-4 weeks
+
+### 2. MSME Samadhaan (File Today)
+- Recover ₹1.8L from Reliance Retail (>90 days overdue)
+- Portal: samadhaan.msme.gov.in
+- Statutory compound interest at 3× RBI rate
+
+### 3. Maharashtra MSME Policy Subsidies
+- Stamp duty waiver, electricity duty exemption
+- Contact: District Industries Centre (DIC) Thane/Mumbai
+
+### 4. GeM Portal Seller Registration
+- Sell to government departments without tender hassle
+- Register: gem.gov.in with Udyam certificate
+
+### 5. ZED Certification
+- Quality certification with **50-80% subsidy** on certification fees
+- Improves customer trust and eligibility for PSU tenders
+
+Ask me for details on any specific scheme.`;
+  }
+
+  // ── LABOUR LAW ──
+  if (/labour|labor|pf|epf|esic|provident|professional tax|pt|minimum wage|employee|salary|gratuity|bonus|posh/.test(ql)) {
+    if (/pf|epf|provident fund/.test(ql)) {
+      return `## EPF — Employee Provident Fund
+
+**Applicable to:** All establishments with 20+ employees (you have 14 — **approaching threshold**)
+
+**Note for you:** Once you reach 20 employees, EPF is mandatory. Plan ahead.
+
+## Contribution Rates:
+| Party | Rate | On |
+|-------|------|-----|
+| Employee | **12%** of basic+DA | Compulsory |
+| Employer | **12%** of basic+DA | Broken as: EPF 3.67% + EPS 8.33% |
+
+## Employer Pays (Monthly):
+- Employee contribution (12%) deducted from salary
+- Employer's share (12%) — additional cost
+- **Admin charges:** 0.5% of total wages
+
+## Compliance:
+- Register on: **epfindia.gov.in** / **unified portal**
+- Monthly ECR (Electronic Challan cum Return) by **15th of next month**
+- UAN generation for all employees
+- Annual return (Form 3A, 6A)
+
+## If You Cross 20 Employees:
+Register immediately — penalty for delayed registration: fine + prosecution u/s 14 EPF Act.
+
+**Tip:** If you plan to hire beyond 20, register voluntarily now to avoid compliance gap.`;
+    }
+    if (/esic|esi|employees state insurance/.test(ql)) {
+      return `## ESIC — Employees' State Insurance Corporation
+
+**Applicable:** Establishments with 10+ employees (factories with 20+ in some states)
+
+**Your business (14 employees, Maharashtra):** ✅ ESIC applies to you
+
+## Coverage:
+Employees earning **≤ ₹21,000/month** are covered under ESIC
+
+## Contribution Rates:
+| Party | Rate |
+|-------|------|
+| **Employer** | 3.25% of wages |
+| **Employee** | 0.75% of wages |
+
+## Benefits to Employees:
+- Free medical treatment at ESI hospitals/dispensaries
+- Sickness benefit (70% of wages)
+- Maternity benefit (26 weeks full wages)
+- Accident/disability benefit
+- Dependent benefit (family pension)
+
+## Compliance:
+- Register: **esic.gov.in** (new employer registration)
+- Monthly contribution deposit: **15th of following month**
+- Half-yearly returns (Form 5)
+- Maintain attendance register, wages register
+
+**Contact:** ESIC Regional Office, Mumbai for Maharashtra registration`;
+    }
+    if (/professional tax|pt tax|maharashtra/.test(ql)) {
+      return `## Professional Tax — Maharashtra
+
+**Statutory authority:** Maharashtra State Tax on Professions, Trades, Callings and Employments Act, 1975
+
+## PT Slabs (Maharashtra) — Monthly Salary:
+| Monthly Salary | PT Deduction |
+|---------------|--------------|
+| Up to ₹7,500 | NIL |
+| ₹7,501 – ₹10,000 | ₹175/month |
+| Above ₹10,000 | **₹200/month** (₹300 in Feb) |
+
+## Employer Obligations:
+- **Deduct PT** from employee salaries per above slab
+- **Pay monthly** by 31st of following month (if >12 months deduction per year)
+- **Annual return:** Form III — 31 March
+
+## Enrollment Certificate (EC):
+- All businesses must enroll for PT
+- Registration fee: ₹2,500 (one-time)
+- File at: **mahagst.gov.in**
+
+## Your Filing:
+PT Return for FY 2024-25 due: **31 March 2025** ← 39 days away
+
+**Penalty:** ₹5,000 per annum for non-filing + PT amount + 1.25% interest per month`;
+    }
+    if (/gratuity/.test(ql)) {
+      return `## Gratuity — Payment of Gratuity Act 1972
+
+**Applicable:** Establishments with 10+ employees
+
+## Eligibility:
+Employee must have completed **5 continuous years** of service
+
+## Calculation:
+**Gratuity = (Last drawn basic salary × 15 days × years of service) / 26**
+
+## Example:
+Employee with 8 years service, basic ₹25,000/month:
+Gratuity = (25,000 × 15 × 8) / 26 = **₹1,15,385**
+
+## Maximum Limit:
+₹20 Lakh (per government notification 2018)
+
+## Payment Timeline:
+Must be paid within **30 days** of leaving — else 10% p.a. interest applies
+
+## Tax Treatment:
+- **Employee:** Gratuity exempt u/s 10(10) up to ₹20L (government employee: fully exempt)
+- **Employer:** 100% deductible business expense
+
+**Funding:** Consider opening a Gratuity Fund with LIC/insurance company for tax efficiency.`;
+    }
+    return `## Labour Law Compliance — 14 Employees, Maharashtra
+
+## Your Applicable Laws:
+
+| Act | Applicable | Key Obligation |
+|-----|-----------|----------------|
+| **ESIC** | ✅ Yes (10+ employees) | 3.25% employer contribution |
+| **EPF** | ⚠️ Not yet (need 20+) | Plan for threshold |
+| **Prof. Tax (Maharashtra)** | ✅ Yes | Deduct ₹200/month per employee |
+| **Payment of Wages Act** | ✅ Yes | Pay by 7th/10th of month |
+| **Minimum Wages Act** | ✅ Yes | Maharashtra rates |
+| **Payment of Bonus Act** | ✅ Yes (if profit > threshold) | 8.33–20% of salary |
+| **POSH Act** | ✅ Yes (10+ employees) | ICC committee mandatory |
+
+## Maharashtra Minimum Wages (Retail, 2024-25):
+- Unskilled: ₹12,490/month
+- Semi-skilled: ₹13,480/month
+- Skilled: ₹14,980/month
+
+## POSH Compliance (Critical):
+With 14 employees you need an **Internal Complaints Committee (ICC)** mandatorily.
+Non-compliance: Fine up to ₹50,000 + license cancellation risk.
+
+## Shops & Establishments Act (Maharashtra):
+- Register with local municipal authority
+- Maximum working hours: 9/day, 48/week
+- Weekly off mandatory
+
+Ask me about any specific law.`;
+  }
+
+  // ── NOTICES ──
+  if (/notice|reply|respond|legal|appeal|penalty|demand/.test(ql)) {
+    return `## Handling Legal Notices — Action Guide
+
+**Your active notices:**
+
+## 1. IT Scrutiny Notice u/s 143(2) — AY 2023-24 ⚠️ OVERDUE
+
+**Immediate action required:**
+- Login: incometax.gov.in → e-Proceedings → Pending Actions
+- Submit response with financial documents
+- If complex → engage CA/Tax Advocate immediately
+- Penalty for non-response: Best judgment assessment u/s 144
+
+## 2. GST Mismatch Notice (GSTR-2A vs 3B — Nov 2024)
+
+**Response steps:**
+- Login: gst.gov.in → Services → User Services → Notices/Orders/Demand
+- Download notice, prepare invoice-wise reconciliation
+- File response with supporting documents within **30 days**
+- Pay disputed tax + 18% interest if ITC must be reversed
+
+## General Notice Response Framework:
+1. **Read carefully** — note section, assessment year, amount, deadline
+2. **Gather evidence** — invoices, bank statements, returns
+3. **Draft written response** — factual, supported by documents
+4. **File online** — through respective portal (IT portal / GST portal)
+5. **Acknowledge receipt** — keep confirmation
+6. **If unresolved** → Appeal (CIT(A) for IT, GST Appellate Authority for GST)
+
+## Limitation Periods:
+- IT appeal to CIT(A): 30 days from order date
+- GST appeal to Appellate Authority: 3 months from order date
+
+Always engage a CA/advocate for scrutiny notices — professional help pays for itself.`;
+  }
+
+  // ── FEMA / EXPORT-IMPORT ──
+  if (/fema|rbi|export|import|foreign|fdi|odi|firc/.test(ql)) {
+    return `## FEMA Compliance — Foreign Exchange Management
+
+**For your retail business (domestic focus):** Limited FEMA exposure, but important to know.
+
+## If You Import Goods:
+- File **Bill of Entry** with Customs at port
+- Pay **Basic Customs Duty + IGST** (set-off against sales ITC)
+- Maintain **FIRC (Foreign Inward Remittance Certificate)** for advance payments
+- **AD Bank (Authorized Dealer):** Your bank handles all forex transactions
+
+## If You Export:
+- **GSTIN-based export:** File LUT (Letter of Undertaking) on GST portal for zero-rated supplies
+- Realize export proceeds within **9 months** (mandatory u/s 8 FEMA)
+- FIRC required for each export receipt
+- **DGFT (Directorate General of Foreign Trade):** Register for MEIS/RoDTEP export incentives
+
+## FDI Considerations:
+- Retail trading (single brand) → 100% FDI under automatic route
+- Retail trading (multi-brand) → 51% FDI with government approval
+- As a Pvt Ltd, if you take foreign investment → file **FC-GPR** with RBI within 30 days
+
+## Penalty for FEMA Violation:
+Up to 3× the amount involved or ₹2 Lakh, whichever is more (Section 13 FEMA)
+
+For complex cross-border transactions, consult an FEMA lawyer or CA with forex expertise.`;
+  }
+
+  // ── TRADEMARK ──
+  if (/trademark|brand|logo|ip india|register brand/.test(ql)) {
+    return `## Trademark Registration — India
+
+**Portal:** [ipindia.gov.in](https://ipindia.gov.in)
+
+## Process:
+1. **Trademark Search:** ipindia.gov.in → Trademark → Public Search (check conflicts)
+2. **File Application:** Form **TM-A** (online preferred)
+3. **Examination:** IP India examines within 1-2 months
+4. **Opposition Period:** 4 months for public to oppose
+5. **Registration:** Certificate issued (valid **10 years**, renewable)
+
+## Fees (Online):
+- Individuals/Startups/MSMEs: **₹4,500 per class per mark**
+- Companies: ₹9,000 per class per mark
+
+## Classes for Retail Business:
+- **Class 35:** Retail services, business management
+- **Class 16:** Stationery, printed matter (if applicable)
+- Add classes for products you specifically sell
+
+## Timeline:
+- Expedited: ~6 months (with additional fee)
+- Normal: 18-24 months
+
+## Trademark Symbol:
+- **™** — Use from filing date (unregistered claim)
+- **®** — Only after registration certificate received
+
+**Priority:** File before competitors do — "first to file" system in India.`;
+  }
+
+  // ── BUSINESS STRUCTURE ──
+  if (/pvt ltd vs|llp vs|proprietorship|partnership|opc|one person|business structure|which structure/.test(ql)) {
+    return `## Business Structure Comparison — India
+
+| Feature | Sole Prop | Partnership | LLP | Pvt Ltd | OPC |
+|---------|-----------|------------|-----|---------|-----|
+| **Min members** | 1 | 2 | 2 | 2 | 1 |
+| **Liability** | Unlimited | Unlimited | Limited | Limited | Limited |
+| **Tax rate** | Slab | Slab | 30% + cess | 25% + cess | 25% + cess |
+| **Compliance** | Minimal | Low | Moderate | High | High |
+| **Investment** | Difficult | Difficult | Moderate | Easy | Difficult |
+| **Annual filings** | ITR only | ITR | Form 8, 11 | AOC-4, MGT-7 | AOC-4, MGT-7 |
+
+## Best for You (Current Stage — ₹1 Cr turnover):
+**Private Limited Company** ✓ (you already have this — good choice)
+
+**Why Pvt Ltd is right:**
+- Limited liability protection
+- Easier bank loans and investor funding
+- Higher credibility with enterprise customers
+- Can have ESOP for employee retention
+
+## When to Convert to LLP:
+If you want lower compliance burden without external investors — LLP works well above ₹2 Cr turnover.
+
+**Note:** Conversion from Pvt Ltd to LLP allowed under Section 56 LLP Act — tax neutral if done correctly.`;
+  }
+
+  // ── FSSAI ──
+  if (/fssai|food|food safety|food license/.test(ql)) {
+    return `## FSSAI Registration / License — Food Safety
+
+**Applicable to:** Any business dealing in food products — including retail stores selling packaged food.
+
+## Which applies to you?
+| Turnover | Type | Fee |
+|----------|------|-----|
+| < ₹12 Lakh | **Basic Registration** | ₹100/year |
+| ₹12 L – ₹20 Cr | **State License** | ₹2,000-5,000/year |
+| > ₹20 Cr / Multi-state | **Central License** | ₹7,500/year |
+
+**Your business (₹1.02 Cr retail):** **State FSSAI License**
+
+## Application Process:
+1. Portal: **foscos.fssai.gov.in**
+2. Register → Apply for State License
+3. Submit: Business address proof, ID proof, food category list, layout plan
+4. Inspection may be required
+5. License issued in 60 days
+
+## Display Requirements:
+FSSAI License number must be displayed at premises and printed on all bills/receipts.
+
+## Penalty for non-compliance:
+- No license: Up to **₹5 Lakh** fine + imprisonment
+- Selling expired/adulterated food: Up to **life imprisonment** (severe cases)
+
+If you sell any packaged food, spices, snacks, or beverages — get licensed today.`;
+  }
+
+  // ── COMPLIANCE SCORE ──
+  if (/score|improve score|compliance score/.test(ql)) {
+    return `## Improving Your Compliance Score: 648 → 750+
+
+**Current Score:** 648/900 (Fair — 72nd Percentile)
+
+## Score Breakdown & What to Fix:
+
+| Component | Weight | Your Status | Points to Gain |
+|-----------|--------|-------------|----------------|
+| Filing Timeliness | 35% | 73% | File GSTR-3B on time = +25 pts |
+| Notice Resolution | 25% | 48% | Resolve IT notice = +45 pts |
+| Documentation | 20% | 82% | Minor gap = +8 pts |
+| Regulatory Risk | 20% | 76% | Reduce penalty risk = +15 pts |
+
+## Priority Actions (Ranked by Impact):
+
+### 1. Resolve IT Scrutiny Notice (u/s 143(2)) → **+45 points**
+Login to incometax.gov.in and respond today.
+
+### 2. File GSTR-3B on time for next 3 months → **+25 points**
+Set calendar reminders for 20th/22nd every month.
+
+### 3. Reconcile GST 2A vs 3B mismatch → **+18 points**
+File response on GST portal within 30 days.
+
+### 4. Upload all documents to vault → **+8 points**
+Ensure GST certificates, ITR, and audit reports are current.
+
+## Projected Score After Actions:
+648 + 45 + 25 + 18 + 8 = **744/900** ← Clear "Good" threshold ✅
+
+The single highest-impact action: **Resolve your IT scrutiny notice today.**`;
+  }
+
+  // ── GENERAL / FALLBACK ──
+  return `## ARIA — Indian Business Compliance Assistant
+
+I'm trained on all Indian business law. Here's what I can answer:
+
+## Tax & GST:
+- GST filing dates, ITC rules, e-invoicing, notice responses
+- Income tax returns, TDS, advance tax, scrutiny notices
+- Professional tax, MAT, presumptive taxation
+
+## Company Law:
+- MCA/ROC filings (AOC-4, MGT-7, DIR-3 KYC)
+- Annual compliance calendar, board meetings, penalties
+- Company formation, conversion, strike-off
+
+## MSME & Schemes:
+- CGTMSE loans, MUDRA, PMEGP, Samadhaan (delayed payments)
+- Udyam registration benefits, Maharashtra MSME Policy
+- GeM portal, ZED certification, NSIC support
+
+## Labour Law:
+- EPF, ESIC, Professional Tax, Minimum Wages
+- Gratuity, Bonus, POSH Act compliance
+- Shops & Establishments, Contract Labour
+
+## Other:
+- Trademark registration, FSSAI licensing, FEMA
+- Business structure (Pvt Ltd vs LLP vs OPC)
+- Penalty calculations, notice drafting
+
+**Try asking:**
+- "Where do I pay GST?"
+- "How to respond to my 143(2) notice?"
+- "What are TDS due dates?"
+- "Am I eligible for CGTMSE?"
+- "What is GSTR-3B penalty for late filing?"`;
+}
+
+// ─── END KNOWLEDGE BASE ───────────────────────────────────────────────────────
+const _origShowPage = showPage;
+window.showPage = function(page) {
+  _origShowPage(page);
+  currentPageKey = page;
+  // Update floating chatbot suggestions based on current page
+  updateFloatingSuggestions();
+  // Init full ARIA page when navigated to
+  if (page === "aria") {
+    setTimeout(() => {
+      initAriaUI();
+      initFullAria();
+      document.getElementById("fullAriaInput")?.focus();
+    }, 50);
+  }
+  // Pulse ARIA fab on pages with compliance content
+  const notif = document.getElementById("ariaNotif");
+  if (notif && !ariaOpen && ["notices","timeline","score","filings"].includes(page)) {
+    notif.style.display = "flex";
+  }
+};
+
+// ─── DOMContentLoaded ────────────────────────────────────────────────────────
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("ariaInput")?.addEventListener("input", updateSendBtn);
+
+  // Make AI insight boxes in dashboard open ARIA with context
+  document.querySelectorAll(".ai-insight").forEach(el => {
+    el.style.cursor = "pointer";
+    el.addEventListener("click", () => {
+      const q = el.querySelector(".ai-text")?.textContent?.trim();
+      if (!q) return;
+      if (!ariaOpen) toggleARIA();
+      setTimeout(() => {
+        const input = document.getElementById("ariaInput");
+        if (input) { input.value = "Explain: " + q.substring(0, 120); updateSendBtn(); input.focus(); }
+      }, 350);
+    });
+  });
+
+  // ── FILE UPLOAD: Make all upload-zone elements functional ──
+  const uploadHiddenInput = document.createElement("input");
+  uploadHiddenInput.type = "file";
+  uploadHiddenInput.multiple = true;
+  uploadHiddenInput.accept = ".pdf,.jpg,.jpeg,.png,.doc,.docx,.xls,.xlsx,.txt";
+  uploadHiddenInput.style.display = "none";
+  document.body.appendChild(uploadHiddenInput);
+
+  let currentUploadZone = null;
+
+  uploadHiddenInput.addEventListener("change", (e) => {
+    const files = Array.from(e.target.files);
+    if (!files.length || !currentUploadZone) return;
+    const zone = currentUploadZone;
+    zone.style.borderColor = "var(--green)";
+    zone.style.background = "rgba(46,125,50,0.05)";
+    const fileListEl = zone.querySelector(".upload-file-list") || document.createElement("div");
+    fileListEl.className = "upload-file-list";
+    fileListEl.style.cssText = "margin-top:12px;text-align:left;max-height:120px;overflow-y:auto;";
+    fileListEl.innerHTML = files.map(f => `
+      <div style="display:flex;align-items:center;gap:8px;padding:6px 8px;background:white;border-radius:5px;border:1px solid var(--border);margin-bottom:4px;">
+        <span style="font-size:16px;">${f.name.match(/\.pdf$/i)?'📄':f.name.match(/\.(jpg|jpeg|png)$/i)?'🖼️':'📎'}</span>
+        <div style="flex:1;min-width:0;">
+          <div style="font-size:12px;font-weight:500;color:var(--navy);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${f.name}</div>
+          <div style="font-size:10px;color:var(--text-muted);">${(f.size/1024).toFixed(1)} KB</div>
+        </div>
+        <span style="color:var(--green);font-size:12px;">✓</span>
+      </div>`).join("");
+    zone.appendChild(fileListEl);
+
+    // Show success message
+    const existingMsg = zone.querySelector(".upload-success-msg");
+    if (!existingMsg) {
+      const msg = document.createElement("div");
+      msg.className = "upload-success-msg";
+      msg.style.cssText = "margin-top:8px;font-size:12px;color:var(--green);font-weight:500;text-align:center;";
+      msg.textContent = `✓ ${files.length} file${files.length>1?'s':''} uploaded successfully`;
+      zone.appendChild(msg);
+    } else {
+      existingMsg.textContent = `✓ ${files.length} file${files.length>1?'s':''} uploaded successfully`;
+    }
+
+    // If it's a notice upload, simulate AI analysis
+    if (zone.closest('#page-notices')) {
+      setTimeout(() => {
+        const resultEl = zone.closest('.card')?.querySelector('.notice-ai-result');
+        if (resultEl) {
+          resultEl.style.display = "block";
+        } else {
+          const analysisDiv = document.createElement("div");
+          analysisDiv.style.cssText = "margin-top:16px;padding:14px;background:linear-gradient(135deg,#EBF0FF,#F0F4FF);border:1px solid rgba(41,121,255,0.2);border-radius:8px;";
+          analysisDiv.innerHTML = `
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;">
+              <div style="background:#2979FF;color:white;font-size:9px;padding:2px 7px;border-radius:10px;font-family:'IBM Plex Mono',monospace;">AI ANALYSIS</div>
+              <span style="font-size:10px;color:var(--text-muted);">Confidence: 91%</span>
+            </div>
+            <div style="font-size:12px;color:var(--navy);line-height:1.6;">
+              <strong>Document identified:</strong> ${files[0].name}<br>
+              <strong>Type:</strong> ${files[0].name.toLowerCase().includes('gst')?'GST Notice':'Income Tax / Statutory Notice'}<br>
+              <strong>Recommended action:</strong> Review document content and file response within 30 days.<br>
+              <strong>Ask ARIA:</strong> Click the ARIA button to get detailed response guidance.
+            </div>`;
+          zone.parentElement.appendChild(analysisDiv);
+        }
+      }, 800);
+    }
+    uploadHiddenInput.value = "";
+  });
+
+  document.querySelectorAll(".upload-zone").forEach(zone => {
+    zone.addEventListener("click", () => {
+      currentUploadZone = zone;
+      uploadHiddenInput.click();
+    });
+    zone.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      zone.style.borderColor = "var(--blue)";
+      zone.style.background = "var(--blue-glow)";
+    });
+    zone.addEventListener("dragleave", () => {
+      zone.style.borderColor = "";
+      zone.style.background = "";
+    });
+    zone.addEventListener("drop", (e) => {
+      e.preventDefault();
+      currentUploadZone = zone;
+      const dt = new DataTransfer();
+      Array.from(e.dataTransfer.files).forEach(f => dt.items.add(f));
+      uploadHiddenInput.files = dt.files;
+      uploadHiddenInput.dispatchEvent(new Event("change"));
+      zone.style.borderColor = "";
+      zone.style.background = "";
+    });
+  });
+
+  // ── VAULT: Upload button ──
+  document.querySelectorAll(".btn-primary, .btn-outline, .btn-sm").forEach(btn => {
+    const txt = btn.textContent.trim();
+
+    if (txt === "+ Upload Document" || txt.includes("Upload")) {
+      btn.addEventListener("click", (e) => {
+        if (btn.closest(".upload-zone")) return;
+        e.stopPropagation();
+        currentUploadZone = btn.closest(".card") || document.body;
+        uploadHiddenInput.click();
+      });
+    }
+
+    if (txt === "+ New Filing") {
+      btn.addEventListener("click", () => {
+        showNotification("New Filing", "Select a filing type to proceed:", [
+          { label: "GSTR-3B", action: () => { showPage("filings"); ariaSendMsg("What are the steps to file GSTR-3B?"); if(!ariaOpen) toggleARIA(); } },
+          { label: "TDS Return", action: () => { showPage("filings"); } },
+          { label: "MCA Annual Return", action: () => { showPage("filings"); } }
+        ]);
+      });
+    }
+
+    if (txt === "File Now" || txt === "Prepare" || txt === "File Amendment") {
+      btn.addEventListener("click", () => {
+        const filingName = btn.closest(".timeline-entry, .tl-body")?.querySelector(".tl-name, .update-title")?.textContent || "this filing";
+        if (!ariaOpen) toggleARIA();
+        setTimeout(() => ariaSendMsg("How do I file " + filingName + "?"), 300);
+      });
+    }
+
+    if (txt === "Upload Proof") {
+      btn.addEventListener("click", () => {
+        currentUploadZone = btn.closest(".card") || document.body;
+        uploadHiddenInput.accept = ".pdf,.jpg,.jpeg,.png";
+        uploadHiddenInput.click();
+      });
+    }
+
+    if (txt === "Interpret Notices with AI →" || txt.includes("Interpret")) {
+      btn.addEventListener("click", () => { showPage("notices"); });
+    }
+
+    if (txt === "Take Action") {
+      btn.addEventListener("click", () => {
+        const title = btn.closest(".update-card")?.querySelector(".update-title")?.textContent || "";
+        if (!ariaOpen) toggleARIA();
+        setTimeout(() => ariaSendMsg("What action do I take for: " + title.substring(0, 80) + "?"), 300);
+      });
+    }
+
+    if (txt === "Learn More") {
+      btn.addEventListener("click", () => {
+        const title = btn.closest(".update-card")?.querySelector(".update-title")?.textContent || "";
+        if (!ariaOpen) toggleARIA();
+        setTimeout(() => ariaSendMsg("Explain: " + title.substring(0, 100)), 300);
+      });
+    }
+
+    if (txt.includes("Check Your Eligibility") || txt.includes("Enter Platform")) {
+      btn.addEventListener("click", () => { showPage("schemes"); });
+    }
+
+    if (txt === "Export Report" || txt.includes("Export")) {
+      btn.addEventListener("click", () => {
+        showToast("📥 Report exported as PDF — check your downloads");
+      });
+    }
+
+    if (txt === "Filter by Industry") {
+      btn.addEventListener("click", () => {
+        showToast("🔍 Showing updates filtered for: Retail · Maharashtra");
+      });
+    }
+  });
+
+  // ── DROPDOWN SELECTS: Make all dropdowns functional ──
+  document.querySelectorAll("select").forEach(sel => {
+    sel.addEventListener("change", () => {
+      showToast(`✓ Filter applied: ${sel.options[sel.selectedIndex].text}`);
+    });
+  });
+
+  // ── SCHEME FILTER BUTTONS ──
+  document.querySelectorAll(".scheme-filter").forEach(btn => {
+    btn.addEventListener("click", function() {
+      document.querySelectorAll(".scheme-filter").forEach(b => b.classList.remove("active"));
+      this.classList.add("active");
+      showToast(`Filtering schemes: ${this.textContent}`);
+    });
+  });
+
+  // ── COMPANY SELECTOR ──
+  document.querySelector(".company-selector")?.addEventListener("click", () => {
+    showNotification("Switch Company", "Your registered entities:", [
+      { label: "Krishnamurthy Retail Pvt. Ltd.", action: () => showToast("✓ Active: Krishnamurthy Retail Pvt. Ltd.") },
+      { label: "+ Add New Company", action: () => showToast("Company onboarding wizard coming soon") }
+    ]);
+  });
+
+  // ── SCORE BADGE in header ──
+  document.querySelector(".score-badge")?.addEventListener("click", () => { showPage("score"); });
+
+  // ── CALENDAR NAV BUTTONS ──
+  document.querySelectorAll(".cal-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      showToast("📅 Calendar navigation — use the Timeline page for full calendar");
+    });
+  });
+
+  // ── HEADER NOTIFICATION BELL ──
+  document.querySelectorAll(".btn-icon").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const hasNotif = btn.querySelector(".notif-dot");
+      if (hasNotif) {
+        showNotification("Notifications", "You have 3 pending actions:", [
+          { label: "⚠️ Respond to IT Scrutiny Notice", action: () => showPage("notices") },
+          { label: "📋 GSTR-3B due in 3 days", action: () => showPage("filings") },
+          { label: "💰 Check CGTMSE eligibility", action: () => showPage("schemes") }
+        ]);
+      }
+    });
+  });
+
+  // ── "View All →" LINKS ──
+  document.querySelectorAll("[style*='cursor:pointer']").forEach(el => {
+    if (el.textContent.includes("View All")) {
+      el.addEventListener("click", () => showPage("timeline"));
+    }
+    if (el.textContent.includes("Full View")) {
+      el.addEventListener("click", () => showPage("projections"));
+    }
+  });
+});
+
+// ── UTILITY FUNCTIONS ────────────────────────────────────────────────────────
+function showToast(msg) {
+  const existing = document.getElementById("aria-toast");
+  if (existing) existing.remove();
+  const toast = document.createElement("div");
+  toast.id = "aria-toast";
+  toast.style.cssText = "position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:#1A1A1A;color:white;padding:10px 20px;border-radius:8px;font-size:13px;font-family:'IBM Plex Sans',sans-serif;z-index:9999;box-shadow:0 4px 20px rgba(0,0,0,0.3);animation:toast-in 0.2s ease;white-space:nowrap;";
+  toast.textContent = msg;
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 2800);
+}
+
+function showNotification(title, subtitle, actions) {
+  const existing = document.getElementById("aria-modal");
+  if (existing) existing.remove();
+  const modal = document.createElement("div");
+  modal.id = "aria-modal";
+  modal.style.cssText = "position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:9998;display:flex;align-items:center;justify-content:center;";
+  modal.innerHTML = `
+    <div style="background:white;border-radius:12px;padding:24px;min-width:320px;max-width:400px;box-shadow:0 20px 60px rgba(0,0,0,0.2);">
+      <div style="font-size:16px;font-weight:700;color:var(--navy);margin-bottom:6px;">${title}</div>
+      <div style="font-size:12px;color:var(--text-muted);margin-bottom:16px;">${subtitle}</div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        ${actions.map((a,i) => `<button id="notif-action-${i}" style="padding:10px 14px;border-radius:6px;border:1px solid var(--border);background:white;text-align:left;font-size:13px;cursor:pointer;font-family:'IBM Plex Sans',sans-serif;color:var(--navy);transition:background 0.1s;"
+          onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='white'">${a.label}</button>`).join("")}
+      </div>
+      <button onclick="document.getElementById('aria-modal').remove()" style="margin-top:12px;width:100%;padding:8px;border:none;background:transparent;color:var(--text-muted);font-size:12px;cursor:pointer;">Cancel</button>
+    </div>`;
+  document.body.appendChild(modal);
+  actions.forEach((a,i) => {
+    document.getElementById(`notif-action-${i}`)?.addEventListener("click", () => { modal.remove(); a.action(); });
+  });
+  modal.addEventListener("click", (e) => { if (e.target === modal) modal.remove(); });
+}
+
+const toastStyle = document.createElement("style");
+toastStyle.textContent = "@keyframes toast-in { from { opacity:0; transform:translateX(-50%) translateY(10px); } to { opacity:1; transform:translateX(-50%) translateY(0); } } @keyframes aria-bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-4px)} }";
+document.head.appendChild(toastStyle);
+</script>
+
 </body>
 </html>
